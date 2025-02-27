@@ -8,7 +8,7 @@ namespace YVR.Core
     {
         public bool ignoreSDKSetting = false;
         public bool appIDChecked = false;
-        public List<ManifestTagInfo> manifestTagInfosList;
+        public List<ManifestTagInfo> manifestTagInfosList = new();
         public List<AssetInfo> assetInfoList;
     }
 }

@@ -7,4 +7,3 @@
 1. [BoxWorld](./DemoScenes/BoxWorld.md)：最基本的场景，用于说明手柄和云台的 6DoF 追踪状态。
 2. [Input](./DemoScenes/Input.md)：用于说明和调试 YVRInput 接口的场景。
 3. [Raycasting](./DemoScenes/Raycasting.md)：用于说明如何与 UGUI 和物理碰撞器交互的场景。
-4. [Composite Layer](./DemoScenes/CompositeLayer.md)：用于说明合成层效果的场景。

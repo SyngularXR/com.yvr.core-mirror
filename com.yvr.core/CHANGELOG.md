@@ -1,5 +1,58 @@
 # Changelog
 
+## [1.23.9] - 2025-02-27
+
+### Changed
+
+- 移除 YVREyeDevice 中的 Usage 描述
+
+## [1.23.8] - 2025-02-26
+
+### Changed
+
+- 直接使用 Device Position/Rotation 作为手柄的位置/旋转
+
+## [1.23.7] - 2025-02-26
+
+### Changed
+
+- 移除 YVRHandDevice，将 InteractionEyeDevice 合并至 EyeDevice
+
+## [1.23.6] - 2025-02-26
+
+### Added
+
+- 增加 Hand/Aim Hand/Eye/Interaction Device
+
+## [1.23.5] - 2025-02-26
+
+### Changed
+
+- 更新 OpenXR Loader
+- 添加设置/获取边界触发范围接口
+
+## [1.23.4] - 2025-02-25
+
+### Changed
+
+- 更新 OpenXR Loader
+
+## [1.23.3] - 2025-02-25
+
+### Fixed
+
+- 修复 OpenXR 相关的 Action 共用 Intent 导致无法安装的问题
+
+## [1.23.2] - 2025-02-24
+
+### Added
+
+- 在打包时自动添加 OpenXR 相关 Manifest 权限
+
+### Changed
+
+- 将 OpenXRLoader 替换为 KHR 通用版本
+
 ## [1.23.1] - 2025-01-22
 
 ### Fixed
