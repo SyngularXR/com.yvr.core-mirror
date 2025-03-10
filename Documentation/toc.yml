@@ -1,6 +1,6 @@
-- name: 手册
-  href: ../com.yvr.core/Documentation_CN/
 - name: Manual
   href: ../com.yvr.core/Documentation/
+- name: 手册
+  href: ../com.yvr.core/Documentation_CN/
 - name: API Reference
   href: api/
