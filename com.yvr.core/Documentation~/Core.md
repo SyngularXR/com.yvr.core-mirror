@@ -2,10 +2,8 @@
 
 The Core User Manual is divided into the following sections:
 
--   [Camera Rig](./CoreDevelopmentBlocks/CameraRig.md): Introduction for the core prefab `YVRCameraRig`.
 -   [YVRManager](./CoreDevelopmentBlocks/YVRManager.md): Introduction for the core manager `YVRManager`.
--   [Controllers](./CoreDevelopmentBlocks/Controllers.md): Introduction for the YVR controllers.
--   [Passthrough](./CoreDevelopmentBlocks/Passthrough.md): Introduction for the passthrough feature.
--   [Hand Tracking](./CoreDevelopmentBlocks/HandTracking.md): Introduction for the hand tracking feature. 
 -   [Advanced Feature](./AdvancedFeatures.md): Introduction for advanced features which intends to increase program performance or simplify the development process.
+-   [SpatialSensing](SpatialSensing.md): Introduction for spatial sensing related functions, developers can use this part of the SDK to perceive the real environment
+-   [MultiModalInteraction](MultiModalInteraction.md): Introduction for multi-modal interaction related functions, developers can use this part of the SDK to implement multiple interaction methods for the application
 -   [Demo Scenes](./DemoScenes.md): Introduction for all demo scenes included in the SDK.
