@@ -1,3 +1,3 @@
 ---
-redirect_url: ../Documentation/Core.html
+redirect_url: ./Documentation/Core.html
 ---
