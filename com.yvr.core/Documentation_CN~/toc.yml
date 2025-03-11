@@ -1,33 +1,19 @@
 - name: Core
   href: ./Core.md
   items:
+      - name: 摄像机
+        href: ./CoreDevelopmentBlocks/CameraRig.md
       - name: YVR Manager
         href: ./CoreDevelopmentBlocks/YVRManager.md
-      - name: 多模态交互
-        href: ./MultiModalInteraction.md
-        items:
-            - name: 手柄
-              href: ./MultiModalInteraction/Controllers.md
-            - name: 手势追踪
-              href: ./MultiModalInteraction/HandTracking.md
-              items:
-                  - name: 手势识别限制
-                    href: ./MultiModalInteraction/HandGestureLimitation.md
-            - name: 眼动追踪
-              href: ./MultiModalInteraction/EyeTracking.md
-      - name: 空间感知
-        href: ./SpatialSensing.md
-        items:
-            - name: 透视
-              href: ./SpatialSensing/Passthrough.md
-            - name: 房间标定
-              href: ./SpatialSensing/RoomCalibration.md
-            - name: 平面检测
-              href: ./SpatialSensing/PlaneDetection.md
-            - name: 空间网格
-              href: ./SpatialSensing/SpatialMesh.md
-            - name: 空间标定
-              href: ./SpatialSensing/SpatialAnchor.md
+      - name: 手柄
+        href: ./CoreDevelopmentBlocks/Controllers.md
+      - name: 透视
+        href: ./CoreDevelopmentBlocks/Passthrough.md
+      - name: 手势追踪
+        href: ./CoreDevelopmentBlocks/HandTracking.md
+        items: 
+            - name: 手势识别限制
+              href: ./CoreDevelopmentBlocks/HandGestureLimitation.md
       - name: 高级功能
         href: ./AdvancedFeatures.md
         items:
@@ -47,7 +33,7 @@
                     href: ./AdvancedFeatures/UnityAudioSource.md
             - name: 系统启动画面
               href: ./AdvancedFeatures/SplashScreen.md
-            - name: 系统键盘
+            - name: 系统键盘  
               href: ./AdvancedFeatures/SystemKeyboard.md
             - name: 焦点感知
               href: ./AdvancedFeatures/FocusAwareness.md
@@ -57,16 +43,18 @@
               href: ./AdvancedFeatures/CompositorLayers.md
             - name: 超采样和锐化
               href: ./AdvancedFeatures/SupersamplingAndSharpening.md
+            - name: 房间标定
+              href: ./AdvancedFeatures/RoomCalibration.md
+            - name: 平面检测
+              href: ./AdvancedFeatures/PlaneDetection.md
+            - name: 空间网格
+              href: ./AdvancedFeatures/SpatialMesh.md
       - name: 示例场景
         href: ./DemoScenes.md
-        items:
+        items: 
             - name: BoxWorld
               href: ./DemoScenes/BoxWorld.md
             - name: Input
               href: ./DemoScenes/Input.md
             - name: Raycasting
               href: ./DemoScenes/Raycasting.md
-      - name: 归档
-        items:
-            - name: Camera Rig
-              href: ./Archive/CameraRig.md

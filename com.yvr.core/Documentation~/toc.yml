@@ -1,33 +1,19 @@
 - name: Core
   href: ./Core.md
   items:
+      - name: Camera Rig
+        href: ./CoreDevelopmentBlocks/CameraRig.md
       - name: YVR Manager
         href: ./CoreDevelopmentBlocks/YVRManager.md
-      - name: Multi Modal Interaction
-        href: ./MultiModalInteraction.md
+      - name: Controllers
+        href: ./CoreDevelopmentBlocks/Controllers.md
+      - name: Passthrough
+        href: ./CoreDevelopmentBlocks/Passthrough.md
+      - name: Hand Tracking
+        href: ./CoreDevelopmentBlocks/HandTracking.md
         items:
-            - name: Controllers
-              href: ./MultiModalInteraction/Controllers.md
-            - name: Hand Tracking
-              href: ./MultiModalInteraction/HandTracking.md
-              items:
-                  - name: Hand Gesture Limitation
-                    href: ./MultiModalInteraction/HandGestureLimitation.md
-            - name: Eye Tracking
-              href: ./MultiModalInteraction/EyeTracking.md
-      - name: Spatial Sensing
-        href: ./SpatialSensing.md
-        items:
-            - name: Passthrough
-              href: ./SpatialSensing/Passthrough.md
-            - name: Room Calibration
-              href: ./SpatialSensing/RoomCalibration.md
-            - name: Plane Detection
-              href: ./SpatialSensing/PlaneDetection.md
-            - name: Spatial Mesh
-              href: ./SpatialSensing/SpatialMesh.md
-            - name: Spatial Anchor
-              href: ./SpatialSensing/SpatialAnchor.md
+            - name: Hand Gesture Limitation
+              href: ./CoreDevelopmentBlocks/HandGestureLimitation.md
       - name: Advanced Features
         href: ./AdvancedFeatures.md
         items:
@@ -55,8 +41,14 @@
               href: ./AdvancedFeatures/DisplayRefreshRate.md
             - name: Compositor Layers
               href: ./AdvancedFeatures/CompositorLayers.md
-            - name: Supersampling And Sharpening
+            - name: Supersampling And Shaperning
               href: ./AdvancedFeatures/SupersamplingAndSharpening.md
+            - name: Room Calibration
+              href: ./AdvancedFeatures/RoomCalibration.md
+            - name: Plane Detection
+              href: ./AdvancedFeatures/PlaneDetection.md
+            - name: Spatial Mesh
+              href: ./AdvancedFeatures/SpatialMesh.md
       - name: Demo Scenes
         href: ./DemoScenes.md
         items:
@@ -66,7 +58,3 @@
               href: ./DemoScenes/Input.md
             - name: Raycasting
               href: ./DemoScenes/Raycasting.md
-      - name: Archive
-        items:
-            - name: Camera Rig
-              href: ./Archive/CameraRig.md

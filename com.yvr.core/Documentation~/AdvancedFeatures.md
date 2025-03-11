@@ -14,3 +14,4 @@ So far, advanced features includes:
 9. [Display Refresh Rate](./AdvancedFeatures/DisplayRefreshRate.md): It affects the quality of the image displayed to users.
 10. [Compositor Layers](./AdvancedFeatures/CompositorLayers.md): Can be used to display the object in focus in the scene.
 11. [Supersampling And Sharpening](./AdvancedFeatures/SupersamplingAndSharpening.md):
+12. [Room Calibration](./AdvancedFeatures/RoomCalibration.md): Ensure the precise alignment of virtual objects with the physical environment.

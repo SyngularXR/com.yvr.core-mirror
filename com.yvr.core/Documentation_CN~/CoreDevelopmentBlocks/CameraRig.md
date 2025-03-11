@@ -1,6 +1,6 @@
 # Camera Rig
 
-YVR Unity 软件包包含一个预制件，`YVRCameraRig`，它是整个 SDK 的核心。它还提供了对 [YVRManager](../CoreDevelopmentBlocks/YVRManager.md) 的访问，它是 VR 功能的主要入口。
+YVR Unity 软件包包含一个预制件，`YVRCameraRig`，它是整个 SDK 的核心。它还提供了对 [YVRManager](./YVRManager.md) 的访问，它是 VR 功能的主要入口。
 
 `YVRCameraRig` 包含一个名为 `TrackingSpace` 的游戏对象，它被设计用来微调头部跟踪参考框架和你的世界之间的关系。
 
@@ -13,6 +13,7 @@ YVR Unity 软件包包含一个预制件，`YVRCameraRig`，它是整个 SDK 的
 当 YVR Unity 包被导入 Unity 时，你的头戴式设备会自动将头部和手柄的跟踪参考传递给 Unity，这使 Unity 摄像机的位置和方向与你在现实世界的位置和方向相匹配。
 
 在一些游戏中，你可能需要控制玩家角色（由摄像机识别）的移动。在这种情况下，你可以让 `YVRCameraRig` 成为一个游戏对象的子对象，并创建一个脚本来控制该游戏对象的行动。
+
 
 ## 在场景中添加 YVRCameraRig
 
