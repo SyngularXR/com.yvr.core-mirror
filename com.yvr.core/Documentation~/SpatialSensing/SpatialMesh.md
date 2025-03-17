@@ -1,21 +1,18 @@
 # Spatial Mesh
 
 ## Overview
-
-Spatial meshes are used to represent and understand the three-dimensional structure of the physical environment. They typically consist of a series of polygons (usually triangles) that together form a 3D mesh to describe objects and surfaces in the real world. In Unity, you can access the `XRMeshSubsystem` to obtain and update mesh information, and dynamically generate and update mesh objects in the scene.
+Spatial mesh is used to represent and understand the three-dimensional structure of the physical environment. It typically consists of a series of polygons (usually triangles) that together form a three-dimensional mesh to describe objects and surfaces in the real world. In Unity, you can access and update mesh information through the `XRMeshSubsystem` and dynamically generate and update mesh objects in the scene.
 
 ## How to Enable Spatial Mesh
 
-YVR implements the UnityXR **XRMeshSubsystem** interface. For more details, refer to the [Unity XRMeshSubsystem documentation](https://docs.unity3d.com/ScriptReference/XR.XRMeshSubsystem.html).
+YVR implements the UnityXR **XRMeshSubsystem** interface. For details, refer to the [Unity XRMeshSubsystem documentation](https://docs.unity.cn/cn/current/ScriptReference/XR.XRMeshSubsystem.html).
 
--   Enable the corresponding scene feature.
+- Enable the scene feature.
+    - Check the scene Support feature
 
--   Check the scene Support feature
+        ![sceneSupport](./SpatialMesh/image.png)
 
-    ![sceneSupport](./SpatialMesh/image.png)
-
--   Request the corresponding scene permission
-
+    - Request the corresponding scene permission
     ```csharp
     public void ScenePermissionRequest()
     {
@@ -31,28 +28,23 @@ YVR implements the UnityXR **XRMeshSubsystem** interface. For more details, refe
     private void Denied(string permission) => Debug.Log($"{permission} Denied");
     private void Granted(string permission) => Debug.Log($"{permission} Granted");
     ```
-
--   Enable mesh detection
-
+- Enable mesh detection
     ```csharp
     YVRMeshTracking.instance.CreateMeshDetector();
     ```
 
--   Enable passthrough mode
-
+- Enable passthrough mode.
     ```csharp
     YVRPlugin.Instance.SetPassthrough(true);
     ```
-
--   Get the available `XRMeshSubsystem` instance
+- Get the available `XRMeshSubsystem` instance.
     ```csharp
     var meshSubsystems = new List<XRMeshSubsystem>();
     SubsystemManager.GetInstances(meshSubsystems);
     ```
 
 ### Get Spatial Mesh Update Information
-
--   Get current mesh information
+- Get current mesh information
     ```csharp
     private static XRMeshSubsystem s_MeshSubsystem;
     private static List<MeshInfo> s_MeshInfos = new List<MeshInfo>();
@@ -91,8 +83,7 @@ YVR implements the UnityXR **XRMeshSubsystem** interface. For more details, refe
 
 ### Update Mesh Block Position and Rotation
 
--   Update the position and rotation of mesh objects
-
+- Update mesh object position and rotation.
     ```csharp
     private void UpdateMeshTransform()
     {
@@ -109,23 +100,22 @@ YVR implements the UnityXR **XRMeshSubsystem** interface. For more details, refe
                     }
             }
     }
-    ```
+        ```
 
 ### Update Corresponding Mesh Block Data
 
--   If the mesh object does not exist, instantiate a new mesh object and add it to the dictionary.
--   If it exists, asynchronously generate the mesh and update its position and rotation.
-
+- If the mesh object does not exist, instantiate a new mesh object and add it to the dictionary.
+- If it exists, generate the mesh asynchronously and update its position and rotation.
     ```csharp
     public GameObject emptyMeshPrefab;
     public Transform target;
-    private void AddToQueueIfNecessary(MeshInfo meshInfo)
+     private void AddToQueueIfNecessary(MeshInfo meshInfo)
     {
             if (!m_MeshIdToGo.TryGetValue(meshInfo.MeshId, out var meshFilter))
             {
                     meshFilter = Instantiate(emptyMeshPrefab, target, false).AddComponent<MeshFilter>();
                     m_MeshIdToGo[meshInfo.MeshId] = meshFilter;
-            
+            }
             var mesh = meshFilter.mesh;
             s_MeshSubsystem.GenerateMeshAsync(meshInfo.MeshId, mesh, null, MeshVertexAttributes.None, (result) =>
             {
@@ -144,5 +134,5 @@ YVR implements the UnityXR **XRMeshSubsystem** interface. For more details, refe
 ### How to Stop Mesh Detection
 
 ```csharp
-YVRMeshTracking.instance.DestroyMeshDetector();
+    YVRMeshTracking.instance.DestroyMeshDetector();
 ```
