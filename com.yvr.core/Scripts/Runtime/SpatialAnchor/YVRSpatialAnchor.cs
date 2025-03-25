@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using AOT;
-using Unity.Collections;
 using UnityEngine;
 using YVR.Utilities;
 

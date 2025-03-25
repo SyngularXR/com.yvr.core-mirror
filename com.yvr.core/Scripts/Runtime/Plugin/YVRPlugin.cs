@@ -278,5 +278,9 @@ namespace YVR.Core
         public virtual void SetBlockInteractionData(bool isBlock) { }
 
         public virtual bool GetBlockInteractionData() { return false; }
+
+        public virtual void SetSessionStateChangeCallback(Action<int> state) { }
+
+        public virtual void PollEvent() { }
     }
 }

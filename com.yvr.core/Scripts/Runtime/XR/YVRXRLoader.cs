@@ -14,6 +14,14 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Hands;
 #endif
 
+#if XR_ARFOUNDATION_5 || XR_ARFOUNDATION_6
+using UnityEngine.XR.ARSubsystems;
+using YVR.Core.ARFoundation.Anchor;
+using YVR.Core.ARFoundation.Camera;
+using YVR.Core.ARFoundation.Plane;
+using YVR.Core.ARFoundation.Session;
+#endif
+
 namespace YVR.Core.XR
 {
     public class YVRXRLoader : XRLoaderHelper
@@ -37,6 +45,13 @@ namespace YVR.Core.XR
 #if XR_HANDS
         private static List<XRHandSubsystemDescriptor> handSubsystemDescriptors
             = new List<XRHandSubsystemDescriptor>();
+#endif
+
+#if XR_ARFOUNDATION_5 || XR_ARFOUNDATION_6
+        private static List<XRCameraSubsystemDescriptor> cameraSubsystemDescriptors = new();
+        private static List<XRAnchorSubsystemDescriptor> anchorSubsystemDescriptors = new();
+        private static List<XRSessionSubsystemDescriptor> sessionSubsystemDescriptors = new();
+        private static List<XRPlaneSubsystemDescriptor> planeSubsystemDescriptors = new();
 #endif
 
         public override bool Initialize()
@@ -85,6 +100,13 @@ namespace YVR.Core.XR
             CreateSubsystem<XRHandSubsystemDescriptor, XRHandSubsystem>(handSubsystemDescriptors, "YVR Hands");
 #endif
 
+#if XR_ARFOUNDATION_5 || XR_ARFOUNDATION_6
+            CreateSubsystem<XRCameraSubsystemDescriptor, XRCameraSubsystem>(cameraSubsystemDescriptors, YVRCameraSubsystem.k_SubsystemId);
+            CreateSubsystem<XRAnchorSubsystemDescriptor, XRAnchorSubsystem>(anchorSubsystemDescriptors, YVRAnchorSubsystem.k_SubsystemId);
+            CreateSubsystem<XRSessionSubsystemDescriptor, XRSessionSubsystem>(sessionSubsystemDescriptors, YVRSessionSubsystem.k_SubsystemId);
+            CreateSubsystem<XRPlaneSubsystemDescriptor, XRPlaneSubsystem>(planeSubsystemDescriptors, YVRPlaneSubsystem.k_SubsystemId);
+#endif
+
             return true;
         }
 
@@ -96,6 +118,12 @@ namespace YVR.Core.XR
 
 #if XR_HANDS
             StartSubsystem<XRHandSubsystem>();
+#endif
+#if XR_ARFOUNDATION_5 || XR_ARFOUNDATION_6
+            StartSubsystem<XRCameraSubsystem>();
+            StartSubsystem<XRAnchorSubsystem>();
+            StartSubsystem<XRSessionSubsystem>();
+            StartSubsystem<XRPlaneSubsystem>();
 #endif
 
             return true;
@@ -110,7 +138,12 @@ namespace YVR.Core.XR
 #if XR_HANDS
             StopSubsystem<XRHandSubsystem>();
 #endif
-
+#if XR_ARFOUNDATION_5 || XR_ARFOUNDATION_6
+            StopSubsystem<XRCameraSubsystem>();
+            StopSubsystem<XRAnchorSubsystem>();
+            StopSubsystem<XRSessionSubsystem>();
+            StopSubsystem<XRPlaneSubsystem>();
+#endif
             return true;
         }
 
@@ -123,7 +156,12 @@ namespace YVR.Core.XR
 #if XR_HANDS
             DestroySubsystem<XRHandSubsystem>();
 #endif
-
+#if XR_ARFOUNDATION_5 || XR_ARFOUNDATION_6
+            DestroySubsystem<XRCameraSubsystem>();
+            DestroySubsystem<XRAnchorSubsystem>();
+            DestroySubsystem<XRSessionSubsystem>();
+            DestroySubsystem<XRPlaneSubsystem>();
+#endif
             return true;
         }
     }

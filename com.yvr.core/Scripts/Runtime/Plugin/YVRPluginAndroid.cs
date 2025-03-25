@@ -339,9 +339,14 @@ namespace YVR.Core
         [DllImport("yvrplugin")]
         private static extern bool YVRGetBlockInteractionData();
 
-	[DllImport("yvrplugin")]
+        [DllImport("yvrplugin")]
         public static extern void YVRSetPassthroughProviderEnable(bool enable);
 
+        [DllImport("yvrplugin")]
+        public static extern void YVRSetSessionStateChangeCallback(Action<int> callback);
+
+        [DllImport("yvrplugin")]
+        public static extern void YVRPollEvent();
 
         //---------------------------------------------------------------------------------------------
 
@@ -798,5 +803,12 @@ namespace YVR.Core
             return YVRGetBlockInteractionData();
         }
 
+        public override void SetSessionStateChangeCallback(Action<int> state) =>
+            YVRSetSessionStateChangeCallback(state);
+
+        public override void PollEvent()
+        {
+            YVRPollEvent();
+        }
     }
 }
