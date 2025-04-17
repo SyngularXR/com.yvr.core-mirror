@@ -1,15 +1,27 @@
-﻿using System.IO;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 using UnityEngine.XR.Management;
 
 namespace YVR.Core.XR
 {
     [System.Serializable]
     [XRConfigurationData("YVR", "YVR.Core.XR.YVRXRSettings")]
-    public partial class YVRXRSettings : ScriptableObject
+    public class YVRXRSettings : ScriptableObject
     {
+        private static YVRXRSettings s_Instance = null;
+
+        public static YVRXRSettings instance
+        {
+            get
+            {
+                if (s_Instance != null) return s_Instance;
+#if UNITY_EDITOR
+                UnityEditor.EditorBuildSettings.TryGetConfigObject("YVR.Core.XR.YVRXRSettings", out s_Instance);
+                return s_Instance;
+#endif
+                return null;
+            }
+        }
+
         [SerializeField, Tooltip("Use 16-bit depth buffer to save bandwidth")]
         public bool use16BitDepthBuffer = false;
 
@@ -59,25 +71,15 @@ namespace YVR.Core.XR
         [SerializeField, Tooltip("Is in P3 color space")]
         public bool isP3 = false;
 
-        public static YVRXRSettings xrSettings { get; private set; }
+        public bool require6Dof = true;
+        public HandTrackingSupport handTrackingSupport = HandTrackingSupport.ControllersOnly;
+        public YVRFeatureSupport eyeTrackingSupport = YVRFeatureSupport.None;
+        public bool requireSpatialAnchor = false;
+        public bool requireSceneAnchor = false;
+        public bool LBESupport = false;
 
         public ushort GetStereoRenderingMode() { return (ushort) stereoRenderingMode; }
 
-        public void Awake() { xrSettings = this; }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (OSSplashScreen == null)
-                return;
-
-            string path = AssetDatabase.GetAssetPath(OSSplashScreen);
-            if (Path.GetExtension(path).ToLower() != ".png")
-            {
-                OSSplashScreen = null;
-                Debug.LogError("system splash screen file is not PNG format: " + path);
-            }
-        }
-#endif
+        public void Awake() { s_Instance = this; }
     }
 }

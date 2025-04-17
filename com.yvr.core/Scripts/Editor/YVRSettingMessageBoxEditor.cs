@@ -20,9 +20,9 @@ namespace YVR.Core.XR
             s_Window.minSize = new Vector2(360, 200);
             s_Window.Show(true);
             Rect pos;
-            if (YVRSDKSettingEditor.s_window != null)
+            if (YVRSDKSettingsWindow.s_window != null)
             {
-                Rect frect = YVRSDKSettingEditor.s_window.position;
+                Rect frect = YVRSDKSettingsWindow.s_window.position;
                 pos = new Rect(frect.x + 300, frect.y + 200, 200, 140);
             }
             else
@@ -65,14 +65,14 @@ namespace YVR.Core.XR
         private void OnClickIgnore()
         {
             SaveAssetDataBase();
-            YVRSDKSettingEditor.s_window.Close();
+            YVRSDKSettingsWindow.s_window.Close();
             Close();
         }
 
         private void SaveAssetDataBase()
         {
             YVRSDKSettingAsset asset;
-            string assetPath = YVRSDKSettingEditor.s_assetPath + nameof(YVRSDKSettingAsset) + ".asset";
+            string assetPath = YVRSDKSettingsWindow.s_assetPath + nameof(YVRSDKSettingAsset) + ".asset";
             if (File.Exists(assetPath))
             {
                 asset = AssetDatabase.LoadAssetAtPath<YVRSDKSettingAsset>(assetPath);
@@ -80,7 +80,7 @@ namespace YVR.Core.XR
             else
             {
                 asset = CreateInstance<YVRSDKSettingAsset>();
-                ScriptableObjectUtility.CreateAsset(asset, YVRSDKSettingEditor.s_assetPath);
+                ScriptableObjectUtility.CreateAsset(asset, YVRSDKSettingsWindow.s_assetPath);
             }
 
             asset.ignoreSDKSetting = true;

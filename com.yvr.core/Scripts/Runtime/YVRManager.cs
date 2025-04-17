@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using YVR.Core.XR;
 using YVR.Utilities;
 
 namespace YVR.Core
@@ -9,20 +10,6 @@ namespace YVR.Core
     /// </summary>
     public class YVRManager : MonoBehaviorSingleton<YVRManager>
     {
-        public enum HandTrackingSupport
-        {
-            ControllersOnly = 0,
-            ControllersAndHands = 1,
-            HandsOnly = 2
-        }
-
-        public enum YVRFeatureSupport
-        {
-            None = 0,
-            Supported = 1,
-            Required = 2,
-        }
-
         [SerializeField] private bool m_UseUnityRig = true;
 
         /// <summary>
@@ -188,16 +175,6 @@ namespace YVR.Core
         /// </summary>
         public float cpuUtilLevel => YVRPerformanceManager.cpuUtilLevel;
 
-        public HandTrackingSupport handTrackingSupport;
-
-        public bool spatialAnchorSupport;
-
-        public bool sceneSupport;
-
-        public YVRFeatureSupport eyeTrackingSupport;
-
-        public bool largeSpaceSupport;
-
         #endregion
 
         private Transform m_AppSpaceTransform;
@@ -235,7 +212,7 @@ namespace YVR.Core
 
             eventsManager.Initialize();
 
-            if (eyeTrackingSupport != YVRFeatureSupport.None)
+            if (YVRXRSettings.instance.eyeTrackingSupport != YVRFeatureSupport.None)
             {
                 YVRPlugin.Instance.CreateEyeTracker();
             }
@@ -273,10 +250,7 @@ namespace YVR.Core
             }
         }
 
-        public bool GetAppSWEnable()
-        {
-            return YVRPlugin.Instance.GetAppSWSwitch();
-        }
+        public bool GetAppSWEnable() { return YVRPlugin.Instance.GetAppSWSwitch(); }
 
         private void Update()
         {
@@ -288,10 +262,13 @@ namespace YVR.Core
 
         private void LateUpdate()
         {
-            if (YVRPlugin.Instance.GetAppSWEnable() && YVRPlugin.Instance.GetAppSWSwitch() && m_AppSpaceTransform != null)
+            if (YVRPlugin.Instance.GetAppSWEnable() && YVRPlugin.Instance.GetAppSWSwitch() &&
+                m_AppSpaceTransform != null)
             {
-                YVRPlugin.Instance.SetAppSpacePosition(m_AppSpaceTransform.position.x, m_AppSpaceTransform.position.y, m_AppSpaceTransform.position.z);
-                YVRPlugin.Instance.SetAppSpaceRotation(m_AppSpaceTransform.rotation.x, m_AppSpaceTransform.rotation.y, m_AppSpaceTransform.rotation.z, m_AppSpaceTransform.rotation.w);
+                YVRPlugin.Instance.SetAppSpacePosition(m_AppSpaceTransform.position.x, m_AppSpaceTransform.position.y,
+                                                       m_AppSpaceTransform.position.z);
+                YVRPlugin.Instance.SetAppSpaceRotation(m_AppSpaceTransform.rotation.x, m_AppSpaceTransform.rotation.y,
+                                                       m_AppSpaceTransform.rotation.z, m_AppSpaceTransform.rotation.w);
             }
         }
 
@@ -319,10 +296,11 @@ namespace YVR.Core
             {
                 cameras.Sort((Camera c0, Camera c1) =>
                 {
-                    return c0.depth < c1.depth ? -1 :(c0.depth > c1.depth ? 1 : 0);
+                    return c0.depth < c1.depth ? -1 : (c0.depth > c1.depth ? 1 : 0);
                 });
                 result = cameras[0];
             }
+
             return result;
         }
     }

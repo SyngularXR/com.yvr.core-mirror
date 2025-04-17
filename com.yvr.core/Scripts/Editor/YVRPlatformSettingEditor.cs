@@ -28,7 +28,7 @@ namespace YVR.Core.XR
                 EditorGUILayout.TextField(YVRPlatformSetting.Instance.appID, GUILayout.Width(350.0f));
             EditorGUILayout.EndHorizontal();
 
-            YVRSDKSettingEditor.s_appID = YVRPlatformSetting.Instance.appID;
+            YVRSDKSettingsWindow.s_appID = YVRPlatformSetting.Instance.appID;
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label(m_StrAppidTip, GUILayout.Width(500));
             EditorGUILayout.EndHorizontal();

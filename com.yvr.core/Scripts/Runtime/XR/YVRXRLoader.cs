@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.XR;
 #endif
+
 #if XR_HANDS
 using UnityEngine.XR.Hands;
 #endif
@@ -60,12 +61,9 @@ namespace YVR.Core.XR
             InputLayoutLoader.RegisterInputLayouts();
 #endif
 
-            YVRXRSettings settings = null;
-#if UNITY_EDITOR
-            UnityEditor.EditorBuildSettings.TryGetConfigObject<YVRXRSettings>("YVR.Core.XR.YVRXRSettings",
-                                                                              out settings);
-#elif UNITY_ANDROID
-            settings = YVRXRSettings.xrSettings;
+            var settings = YVRXRSettings.instance;
+
+#if !UNITY_EDITOR && UNITY_ANDROID
             YVREventTracking.instance.UploadSDKInfo();
 #endif
             xrUserDefinedSettings = new YVRXRUserDefinedSettings();

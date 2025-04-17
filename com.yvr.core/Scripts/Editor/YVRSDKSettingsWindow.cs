@@ -8,9 +8,9 @@ using UnityEngine.Rendering;
 namespace YVR.Core.XR
 {
     [InitializeOnLoad]
-    public class YVRSDKSettingEditor : EditorWindow
+    public class YVRSDKSettingsWindow : EditorWindow
     {
-        public static YVRSDKSettingEditor s_window;
+        public static YVRSDKSettingsWindow s_window;
         public static string s_assetPath = "Assets/XR/Resources/";
         public static string s_appID = "";
         public static List<GraphicsDeviceType> recommendedGraphicsAPITarget = new List<GraphicsDeviceType>() { GraphicsDeviceType.OpenGLES3 };
@@ -42,7 +42,7 @@ namespace YVR.Core.XR
         private GUIStyle m_StyleBoldLabel;
         private List<GraphicsDeviceType> m_CurrentGraphicsDeviceTypes;
 
-        static YVRSDKSettingEditor()
+        static YVRSDKSettingsWindow()
         {
             EditorApplication.update += Update;
         }
@@ -68,7 +68,7 @@ namespace YVR.Core.XR
         {
             if (s_window == null)
             {
-                s_window = (YVRSDKSettingEditor)GetWindow(typeof(YVRSDKSettingEditor), true, s_StrWindowName, true);
+                s_window = (YVRSDKSettingsWindow)GetWindow(typeof(YVRSDKSettingsWindow), true, s_StrWindowName, true);
                 s_window.autoRepaintOnSceneChange = true;
                 s_window.minSize = new Vector2(710, 550);
             }

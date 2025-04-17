@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using YVR.Core.XR;
 using YVR.Utilities;
 
 namespace YVR.Core
@@ -26,8 +27,8 @@ namespace YVR.Core
         /// </summary>
         public void Initialize()
         {
-            YVRPlugin.Instance.SetAPPHandEnable(YVRManager.instance.handTrackingSupport !=
-                                                YVRManager.HandTrackingSupport.ControllersOnly);
+            YVRPlugin.Instance.SetAPPHandEnable(YVRXRSettings.instance.handTrackingSupport !=
+                                                HandTrackingSupport.ControllersOnly);
 
             Application.onBeforeRender += UpdateHandData;
 
@@ -137,7 +138,7 @@ namespace YVR.Core
 
         private void UpdateHandData()
         {
-            if (YVRManager.instance.handTrackingSupport == YVRManager.HandTrackingSupport.ControllersOnly) return;
+            if (YVRXRSettings.instance.handTrackingSupport == HandTrackingSupport.ControllersOnly) return;
 
             m_PreLeftHandStatus = leftHandData.aimState.status;
             m_PreRightHandStatus = rightHandData.aimState.status;
@@ -166,10 +167,6 @@ namespace YVR.Core
             return activeInputDevice;
         }
 
-        private void OnDestroy()
-        {
-            Application.onBeforeRender -= UpdateHandData;
-        }
-
+        private void OnDestroy() { Application.onBeforeRender -= UpdateHandData; }
     }
 }

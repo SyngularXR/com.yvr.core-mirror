@@ -53,7 +53,13 @@ namespace YVR.Core.ARFoundation.Plane
                 {
                     return PlaneDetectionMode.Horizontal | PlaneDetectionMode.Vertical;
                 }
-                set { }
+                set
+				{
+                    if (value != PlaneDetectionMode.None)
+                        YVRPlaneDetectorMgr.instance.CreatePlaneDetector();
+                    else
+                        YVRPlaneDetectorMgr.instance.EndPlaneDetector();
+ 				}
             }
 
             public override PlaneDetectionMode currentPlaneDetectionMode
@@ -66,7 +72,6 @@ namespace YVR.Core.ARFoundation.Plane
                 ScenePermissionRequest();
 #endif
                 YVRPlaneDetectorMgr.getPlanesAction += OnGetPlanes;
-                YVRPlaneDetectorMgr.instance.CreatePlaneDetector();
             }
 
             private void ScenePermissionRequest()

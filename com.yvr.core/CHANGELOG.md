@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.26.2] - 2025-04-08
+
+### Added
+
+- 简化 RenderingModeManifestElementInfoProvider
+
+## [1.26.1] - 2025-04-08
+
+### Changed
+
+- 让 YVRXRSettings 数据可从原工程中恢复
+
+## [1.26.0] - 2025-04-08
+
+### Changed
+
+- 重构 Manifest 相关逻辑, 将原 YVRManager 的操作挪至 YVRXRSettings 中
+
+## [1.25.3] - 2025-04-08
+
+### Added
+
+- 添加获取/设置边界效果类型接口
+
+## [1.25.2] - 2025-04-03
+
+### Fixed
+
+- 修复 previewtool 偶现崩溃
+
+## [1.25.1] - 2025-04-01
+
+### Added
+
+- 增加 EngineVersion
+
+## [1.25.0] - 2025-03-31
+
+### Changed
+
+- Dynamic Tick 中同样使用预测时间获取位姿
+- 使用 CLOCK_MONOTONIC 作为获取 Pose 的时间戳
+
+## [1.24.2] - 2025-03-26
+
+### Fixed
+
+- 修复导入 arfoundation 包后默认开启了平面检测
+
 ## [1.24.1] - 2025-03-25
 
 ### Added
@@ -83,13 +132,13 @@
 
 ### Fixed
 
-- 修复GraphicAPI设置为Vulkan闪退的bug
+- 修复 GraphicAPI 设置为 Vulkan 闪退的 bug
 
 ## [1.23.0] - 2025-01-21
 
 ### Added
 
-- 把两个ProjectionLayer的RenderScale区分开
+- 把两个 ProjectionLayer 的 RenderScale 区分开
 
 ## [1.22.2] - 2025-01-09
 
@@ -196,7 +245,7 @@
 
 ### Added
 
-- 添加对VST Provider提供的Image合法判断
+- 添加对 VST Provider 提供的 Image 合法判断
 
 ## [1.21.17] - 2024-10-29
 
@@ -312,7 +361,7 @@
 
 ### Added
 
-- 添加extraRenderPass选项
+- 添加 extraRenderPass 选项
 
 ## [1.20.8] - 2024-08-06
 
@@ -324,7 +373,7 @@
 
 ### Added
 
-- 添加接口用于获取PassthroughProvider的Pose
+- 添加接口用于获取 PassthroughProvider 的 Pose
 
 ## [1.20.6] - 2024-07-23
 

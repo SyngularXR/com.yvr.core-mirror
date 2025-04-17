@@ -2,7 +2,6 @@
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine.Internal;
-using Unity.Profiling;
 
 namespace YVR.Core
 {
@@ -34,7 +33,15 @@ namespace YVR.Core
 
         public override void GetCurrentInputDevice(ref ActiveInputDevice inputDevice)
         {
-            YVRGetCurrentInputDevice(ref inputDevice);
+            var value = YVRGetCurrentInputDevice();
+            if (Enum.IsDefined(typeof(ActiveInputDevice), value))
+            {
+                inputDevice = value;
+            }
+            else
+            {
+                inputDevice = ActiveInputDevice.ControllerActive;
+            }
         }
 
         private GCHandle m_LJointLocationsHandle;
@@ -100,7 +107,7 @@ namespace YVR.Core
                                                                 IntPtr jointVelocitiesHandle);
 
         [DllImport(k_Plugin)]
-        private static extern void YVRGetCurrentInputDevice(ref ActiveInputDevice inputDevice);
+        private static extern ActiveInputDevice YVRGetCurrentInputDevice();
 
         [DllImport(k_Plugin)]
         private static extern void DebugEnable(bool enable);
