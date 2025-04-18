@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.26.3] - 2025-04-18
+
+### Added
+
+- 增加针对 ManifestFest 的 Gradle Project 生成后的处理
+
 ## [1.26.2] - 2025-04-08
 
 ### Added

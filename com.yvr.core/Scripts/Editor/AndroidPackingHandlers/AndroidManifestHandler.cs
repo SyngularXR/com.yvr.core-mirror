@@ -2,6 +2,7 @@ using System.IO;
 using UnityEngine.Internal;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Android;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using YVR.Utilities;
@@ -10,7 +11,7 @@ using YVR.Utilities.Editor.PackingProcessor;
 namespace YVR.Core.Editor.Packing
 {
     [ExcludeFromDocs]
-    public class AndroidManifestHandler : IPreprocessBuildWithReport
+    public class AndroidManifestHandler : IPreprocessBuildWithReport, IPostGenerateGradleAndroidProject
     {
         private static YVRSDKSettingAsset asset => YVRSDKSettingAsset.instance;
 
@@ -20,10 +21,15 @@ namespace YVR.Core.Editor.Packing
 
         public void OnPreprocessBuild(BuildReport _) { RefreshManifestElementInfo(); }
 
+        public void OnPostGenerateGradleAndroidProject(string path)
+        {
+            string inApkManifestPath = Path.Combine(path, "src/main/AndroidManifest.xml");
+            ManifestProcessor.PatchAndroidManifest(asset.manifestTagInfosList, inApkManifestPath);
+        }
+
         public static void RefreshManifestElementInfo()
         {
             manifestElementInfoProviders.ForEach(provider => provider.HandleManifestElementInfo());
-            // EditorUtility.SetDirty(YVRSDKSettingAsset.instance);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
