@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.Android;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
+using UnityEngine;
 using YVR.Utilities;
 using YVR.Utilities.Editor.PackingProcessor;
 
@@ -35,7 +36,9 @@ namespace YVR.Core.Editor.Packing
 
             string projectAndroidManifestPath = "Assets/Plugins/Android/AndroidManifest.xml";
             if (File.Exists(projectAndroidManifestPath))
+            {
                 ManifestProcessor.PatchAndroidManifest(asset.manifestTagInfosList, projectAndroidManifestPath);
+            }
         }
 
         public static void UpdateManifestElement(string attrValue, ManifestTagInfo elementInfo)

@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEngine;
 using YVR.Core.XR;
 using YVR.Utilities.Editor.PackingProcessor;
 
@@ -29,7 +30,7 @@ namespace YVR.Core.Editor.Packing
                 if (bool.TryParse(requiredValue, out bool isHandsOnly) && isHandsOnly)
                     YVRXRSettings.instance.handTrackingSupport = HandTrackingSupport.HandsOnly;
                 else
-                    YVRXRSettings.instance.handTrackingSupport = HandTrackingSupport.ControllersOnly;
+                    YVRXRSettings.instance.handTrackingSupport = HandTrackingSupport.ControllersAndHands;
             }
             else
             {
@@ -41,6 +42,7 @@ namespace YVR.Core.Editor.Packing
         public override void HandleManifestElementInfo()
         {
             HandTrackingSupport handSupports = YVRXRSettings.instance.handTrackingSupport;
+
             var permissionInfo = new ManifestTagInfo("/manifest", "uses-permission", "name",
                                                      m_HandPermissionName);
             permissionInfo.required = handSupports != HandTrackingSupport.ControllersOnly;

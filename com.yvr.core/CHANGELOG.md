@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.26.5] - 2025-04-21
+
+### Fixed
+
+- 修复 Controller 和 Hand Tracking Mode 错误标识的问题
+
 ## [1.26.4] - 2025-04-21
 
 ### Added

@@ -12,14 +12,16 @@ public class YVRXRSettingsEditor : Editor
 {
     public void OnValidate()
     {
-        var settings = (YVRXRSettings)target;
+        var settings = (YVRXRSettings) target;
 
         if (settings.OSSplashScreen != null)
         {
             string path = AssetDatabase.GetAssetPath(settings.OSSplashScreen);
-            if (Path.GetExtension(path).ToLower() == ".png") return;
-            settings.OSSplashScreen = null;
-            Debug.LogError("system splash screen file is not PNG format: " + path);
+            if (Path.GetExtension(path).ToLower() != ".png")
+            {
+                settings.OSSplashScreen = null;
+                Debug.LogError("system splash screen file is not PNG format: " + path);
+            }
         }
 
         AndroidManifestHandler.RefreshManifestElementInfo();
@@ -27,7 +29,7 @@ public class YVRXRSettingsEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        var settings = (YVRXRSettings)target;
+        var settings = (YVRXRSettings) target;
 
         settings.use16BitDepthBuffer = EditorGUILayout.Toggle("Use 16-bit Depth Buffer", settings.use16BitDepthBuffer);
         settings.useMonoscopic = EditorGUILayout.Toggle("Use Monoscopic", settings.useMonoscopic);
@@ -63,7 +65,7 @@ public class YVRXRSettingsEditor : Editor
         }
 
         settings.stereoRenderingMode
-            = (StereoRenderingMode)EditorGUILayout.EnumPopup("Stereo Rendering Mode", settings.stereoRenderingMode);
+            = (StereoRenderingMode) EditorGUILayout.EnumPopup("Stereo Rendering Mode", settings.stereoRenderingMode);
 
         if (settings.stereoRenderingMode == StereoRenderingMode.QuadViews)
         {
@@ -99,13 +101,13 @@ public class YVRXRSettingsEditor : Editor
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("OS Splash Screen", GUILayout.Width(EditorGUIUtility.labelWidth - 4));
         settings.OSSplashScreen
-            = (Texture2D)EditorGUILayout.ObjectField(settings.OSSplashScreen, typeof(Texture2D), false);
+            = (Texture2D) EditorGUILayout.ObjectField(settings.OSSplashScreen, typeof(Texture2D), false);
         GUILayout.EndHorizontal();
 
         settings.require6Dof = EditorGUILayout.Toggle("Require 6DoF", settings.require6Dof);
-        settings.handTrackingSupport = (HandTrackingSupport)EditorGUILayout.EnumPopup("Hand Tracking Support",
+        settings.handTrackingSupport = (HandTrackingSupport) EditorGUILayout.EnumPopup("Hand Tracking Support",
              settings.handTrackingSupport);
-        settings.eyeTrackingSupport = (YVRFeatureSupport)EditorGUILayout.EnumPopup("Eye Tracking Support",
+        settings.eyeTrackingSupport = (YVRFeatureSupport) EditorGUILayout.EnumPopup("Eye Tracking Support",
              settings.eyeTrackingSupport);
         if (settings.requireSceneAnchor)
         {
