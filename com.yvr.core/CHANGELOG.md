@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.26.4] - 2025-04-21
+
+### Added
+
+- 减少无效 Physical RenderPose 刷新
+
 ## [1.26.3] - 2025-04-18
 
 ### Added
