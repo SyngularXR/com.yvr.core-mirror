@@ -28,9 +28,6 @@ namespace YVR.Core.XR
         [SerializeField, Tooltip("Use the same poses for left/right eyes")]
         public bool useMonoscopic = false;
 
-        [SerializeField, Tooltip("Submit default layer on VRWidget")]
-        public bool useVRWidget = false;
-
         [SerializeField,
          Tooltip("Always discarding depth and resolving MSAA color to improve performance, this may break user content, Vulkan only")]
         public bool optimizeBufferDiscards = false;

@@ -21,6 +21,7 @@ using YVR.Core.ARFoundation.Anchor;
 using YVR.Core.ARFoundation.Camera;
 using YVR.Core.ARFoundation.Plane;
 using YVR.Core.ARFoundation.Session;
+using YVR.Core.ARFoundation.ImageTracking;
 #endif
 
 namespace YVR.Core.XR
@@ -29,9 +30,6 @@ namespace YVR.Core.XR
     {
         [DllImport("yvrplugin")]
         private static extern void YVRSetXRUserDefinedSettings(ref YVRXRUserDefinedSettings userDefinedSettings);
-
-        [DllImport("yvrplugin")]
-        private static extern int YVRSetDevelopmentBuildMode(bool isDevelopmentBuild);
 
         public static YVRXRUserDefinedSettings xrUserDefinedSettings = default;
 
@@ -53,6 +51,7 @@ namespace YVR.Core.XR
         private static List<XRAnchorSubsystemDescriptor> anchorSubsystemDescriptors = new();
         private static List<XRSessionSubsystemDescriptor> sessionSubsystemDescriptors = new();
         private static List<XRPlaneSubsystemDescriptor> planeSubsystemDescriptors = new();
+        private static List<XRImageTrackingSubsystemDescriptor> imageTrackingSubsystemDescriptors = new();
 #endif
 
         public override bool Initialize()
@@ -71,7 +70,6 @@ namespace YVR.Core.XR
             xrUserDefinedSettings.use16BitDepthBuffer = settings.use16BitDepthBuffer;
             xrUserDefinedSettings.useMonoscopic = settings.useMonoscopic;
             xrUserDefinedSettings.useLinearColorSpace = QualitySettings.activeColorSpace == ColorSpace.Linear;
-            xrUserDefinedSettings.UseVRWidget = settings.useVRWidget;
             xrUserDefinedSettings.useAppSW = settings.useAppSW;
             xrUserDefinedSettings.enablePassthroughProvider = settings.passthroughProvider;
             xrUserDefinedSettings.autoResolve = settings.autoResolve;
@@ -85,12 +83,6 @@ namespace YVR.Core.XR
             xrUserDefinedSettings.innerPassRenderScale = settings.innerPassRenderScale;
             YVRSetXRUserDefinedSettings(ref xrUserDefinedSettings);
 
-#if DEVELOPMENT_BUILD
-            YVRSetDevelopmentBuildMode(true);
-#else
-            YVRSetDevelopmentBuildMode(false);
-#endif
-
             CreateSubsystem<XRDisplaySubsystemDescriptor, XRDisplaySubsystem>(displaySubsystemDescriptors, "Display");
             CreateSubsystem<XRInputSubsystemDescriptor, XRInputSubsystem>(inputSubsystemDescriptors, "Tracking");
             CreateSubsystem<XRMeshSubsystemDescriptor, XRMeshSubsystem>(meshSubsystemDescriptors, "Meshing");
@@ -103,6 +95,7 @@ namespace YVR.Core.XR
             CreateSubsystem<XRAnchorSubsystemDescriptor, XRAnchorSubsystem>(anchorSubsystemDescriptors, YVRAnchorSubsystem.k_SubsystemId);
             CreateSubsystem<XRSessionSubsystemDescriptor, XRSessionSubsystem>(sessionSubsystemDescriptors, YVRSessionSubsystem.k_SubsystemId);
             CreateSubsystem<XRPlaneSubsystemDescriptor, XRPlaneSubsystem>(planeSubsystemDescriptors, YVRPlaneSubsystem.k_SubsystemId);
+            CreateSubsystem<XRImageTrackingSubsystemDescriptor, XRImageTrackingSubsystem>(imageTrackingSubsystemDescriptors, YVRImageTrackingSubsystem.k_SubsystemId);
 #endif
 
             return true;
@@ -122,6 +115,7 @@ namespace YVR.Core.XR
             StartSubsystem<XRAnchorSubsystem>();
             StartSubsystem<XRSessionSubsystem>();
             StartSubsystem<XRPlaneSubsystem>();
+            StartSubsystem<XRImageTrackingSubsystem>();
 #endif
 
             return true;
@@ -141,6 +135,7 @@ namespace YVR.Core.XR
             StopSubsystem<XRAnchorSubsystem>();
             StopSubsystem<XRSessionSubsystem>();
             StopSubsystem<XRPlaneSubsystem>();
+            StopSubsystem<XRImageTrackingSubsystem>();
 #endif
             return true;
         }
@@ -159,6 +154,7 @@ namespace YVR.Core.XR
             DestroySubsystem<XRAnchorSubsystem>();
             DestroySubsystem<XRSessionSubsystem>();
             DestroySubsystem<XRPlaneSubsystem>();
+            DestroySubsystem<XRImageTrackingSubsystem>();
 #endif
             return true;
         }

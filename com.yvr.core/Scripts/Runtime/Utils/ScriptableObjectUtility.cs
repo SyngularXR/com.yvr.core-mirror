@@ -1,3 +1,5 @@
+// This script must be defined in Runtime folder, as some class like `ToTrackingImageCollectionSO` need to access it
+#if UNITY_EDITOR
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -20,3 +22,4 @@ namespace YVR.Core.XR
         }
     }
 }
+#endif

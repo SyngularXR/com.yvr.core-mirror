@@ -57,6 +57,17 @@
               href: ./AdvancedFeatures/CompositorLayers.md
             - name: Supersampling And Sharpening
               href: ./AdvancedFeatures/SupersamplingAndSharpening.md
+      - name: AR Foundation
+        href: ./ARFoundation/ARFoundation.md
+        items:
+            - name: Anchor
+              href: ./ARFoundation/Anchor.md
+            - name: Camera
+              href: ./ARFoundation/Camera.md
+            - name: Mesh
+              href: ./ARFoundation/Mesh.md
+            - name: Plane
+              href: ./ARFoundation/Plane.md
       - name: Demo Scenes
         href: ./DemoScenes.md
         items:

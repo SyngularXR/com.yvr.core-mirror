@@ -23,6 +23,7 @@ namespace YVR.Core
             m_HandJointLocations = handType == HandType.HandLeft
                 ? YVRHandManager.instance.leftHandData
                 : YVRHandManager.instance.rightHandData;
+
             UpdateHandJoints();
             UpdatePointerPose();
         }
@@ -36,7 +37,7 @@ namespace YVR.Core
                 for (int i = 0; i < handJoints.Count; ++i)
                 {
                     if (handJoints[i] == null) continue;
-
+                    m_HandJointLocations.jointLocations[i].pose.ToJointPosef(handType);
                     if (i == (int)HandJoint.JointWrist)
                     {
 #if UNITY_2022_1_OR_NEWER
@@ -72,8 +73,8 @@ namespace YVR.Core
         {
             if (m_HandJointLocations.isActive == 0 || (m_HandJointLocations.aimState.status & HandStatus.InputStateValid) == 0) return;
 
-            pointerPose.localPosition = m_HandJointLocations.aimState.aimPose.position.FromFlippedZVector3f();
-            pointerPose.rotation = m_HandJointLocations.aimState.aimPose.orientation.FromFlippedZQuatf();
+            pointerPose.localPosition = m_HandJointLocations.aimState.aimPose.position;
+            pointerPose.rotation = m_HandJointLocations.aimState.aimPose.orientation;
         }
     }
 }

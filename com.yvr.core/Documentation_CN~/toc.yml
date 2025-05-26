@@ -26,7 +26,7 @@
               href: ./SpatialSensing/PlaneDetection.md
             - name: 空间网格
               href: ./SpatialSensing/SpatialMesh.md
-            - name: 空间标定
+            - name: 空间锚点
               href: ./SpatialSensing/SpatialAnchor.md
       - name: 高级功能
         href: ./AdvancedFeatures.md
@@ -57,6 +57,17 @@
               href: ./AdvancedFeatures/CompositorLayers.md
             - name: 超采样和锐化
               href: ./AdvancedFeatures/SupersamplingAndSharpening.md
+      - name: AR Foundation
+        href: ./ARFoundation/ARFoundation.md
+        items:
+            - name: Anchor
+              href: ./ARFoundation/Anchor.md
+            - name: Camera
+              href: ./ARFoundation/Camera.md
+            - name: Mesh
+              href: ./ARFoundation/Mesh.md
+            - name: Plane
+              href: ./ARFoundation/Plane.md
       - name: 示例场景
         href: ./DemoScenes.md
         items:

@@ -19,9 +19,10 @@ updated: 2024-01-03
 1. 在 Unity 中打开项目
 2. 为场景添加 XR Origin
 3. 添加 YVRManager 脚本
-4. 在 YVRManager 脚本面板上勾选启用 SpatialAnchorSupport
+4. 在项目中打开`ProjectSettings` 选择 `XR Plug-in Management` 下 `YVR` 面板勾选 `Spatial Anchor Support`
+    ![SpatialAnchor](./SpatialAnchor/SpatialAnchor.png)
 ```ad-note
-勾选 SpatialAnchorSupport 选框后，AndroidManifest.xml 文件中会添加锚点对应权限 
+勾选 SpatialAnchorSupport 选框后，AndroidManifest.xml 文件中会添加锚点对应权限
 **\<uses-permission android:name="com.yvr.permission.USE_ANCHOR_API"\\>**
 ```
 ## 空间锚点接口

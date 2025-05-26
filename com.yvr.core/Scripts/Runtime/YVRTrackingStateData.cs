@@ -14,11 +14,11 @@ namespace YVR.Core
             /// <summary>
             /// camera default high is 0.
             /// </summary>
-            EyeLevel = 0,
+            EyeLevel = 2,
             /// <summary>
             /// The default height of the camera is the height of the boundary setting.
             /// </summary>
-            FloorLevel = 1,
+            FloorLevel = 1000426000,
             /// <summary>
             /// Not affected by Recenter
             /// </summary>

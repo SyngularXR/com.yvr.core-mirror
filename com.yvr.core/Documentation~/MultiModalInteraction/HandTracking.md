@@ -24,7 +24,7 @@
 2. Import the YVR package.
 3. Create a new scene or open an existing scene in the Unity editor.
 4. Drag `YVRCameraRig` from the `com.yvr.core/Prefabs/` directory to the `Hierarchy` panel.
-5. Select `YVRCameraRig`, and in the `YVRManager` component, choose whether to support hand tracking or controller from `Hand Tracking Support` to enable hand tracking or controller capabilities for the application.
+5. Open `ProjectSettings`, navigate to the `YVR` panel under `XR Plug-in Management`, and select whether to support hand tracking or controllers in the `Hand Tracking Support` option to enable hand tracking or controller capabilities for the application.
     ![HandTracking](./HandTracking/HandTracking.png)
 6. Build the scene and run it on the device.
 > [!Note] 

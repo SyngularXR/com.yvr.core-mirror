@@ -19,8 +19,8 @@ Spatial Anchors are key points used for positioning and tracking objects or scen
 1. Open the project in Unity
 2. Add XR Origin to the scene
 3. Add the YVRManager script
-4. Check the Enable SpatialAnchorSupport option in the YVRManager script panel
-```ad-note
+4.In your project, open `ProjectSettings`, navigate to the `YVR` panel under `XR Plug-in Management`, and check `Spatial Anchor Support` feature
+    ![SpatialAnchor](./SpatialAnchor/SpatialAnchor.png)
 After checking the SpatialAnchorSupport checkbox, the corresponding permission will be added to the AndroidManifest.xml file 
 **\<uses-permission android:name="com.yvr.permission.USE_ANCHOR_API"\\>**
 ```

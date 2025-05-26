@@ -106,8 +106,7 @@ namespace YVR.Core
         public void ToJointPosef(HandType hand)
         {
             Quaternion rot = orientation;
-            rot = new Quaternion(-rot.x, -rot.y, rot.z, rot.w) * Quaternion.AngleAxis(180f, Vector3.up);
-            position.z = -position.z;
+            rot *=  Quaternion.AngleAxis(180f, Vector3.up);
             orientation = rot;
         }
     }

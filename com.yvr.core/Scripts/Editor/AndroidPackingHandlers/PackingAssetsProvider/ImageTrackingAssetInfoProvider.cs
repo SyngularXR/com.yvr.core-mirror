@@ -1,0 +1,86 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
+using UnityEngine;
+using YVR.Core.ImageTracking;
+using YVR.Utilities;
+using YVR.Utilities.Editor.PackingProcessor;
+
+namespace YVR.Core.Editor.Packing
+{
+    public class ImageTrackingAssetInfoProvider : PackingAssetsInfoProvider, IPreprocessBuildWithReport
+    {
+        private static ImageTrackingAssetInfoProvider s_Instance;
+
+        [InitializeOnLoadMethod]
+        private static void Init()
+        {
+            s_Instance ??= new ImageTrackingAssetInfoProvider();
+            PackingAssetHandler.packingAssetsInfoProviders.Add(s_Instance);
+        }
+
+        private static YVRSDKSettingAsset asset => YVRSDKSettingAsset.instance;
+
+        public int callbackOrder => 9000;
+
+        public void OnPreprocessBuild(BuildReport _)
+        {
+            EditorUtility.SetDirty(ToTrackImagesCollectionSO.instance);
+            AssetDatabase.SaveAssets();
+            AddTrackImagesCollectionSOToPreload();
+        }
+
+        private void AddTrackImagesCollectionSOToPreload()
+        {
+            var preloadedAssets = PlayerSettings.GetPreloadedAssets();
+            Object assetToAdd = ToTrackImagesCollectionSO.instance;
+            if (System.Array.Exists(preloadedAssets, a => a == assetToAdd))
+            {
+                return;
+            }
+
+            var newPreloadedAssets = new Object[preloadedAssets.Length + 1];
+            preloadedAssets.CopyTo(newPreloadedAssets, 0);
+            newPreloadedAssets[preloadedAssets.Length] = assetToAdd;
+            PlayerSettings.SetPreloadedAssets(newPreloadedAssets);
+        }
+
+        public override void HandlePackingAssetsInfo(string path)
+        {
+            string assetPath = Path.Combine(path, "src/main/assets");
+            string[] files = Directory.GetFiles(assetPath, "it_*");
+            foreach (string file in files) File.Delete(file);
+
+            var toTrackImgColl = ToTrackImagesCollectionSO.instance;
+
+            List<PackingAssetInfo> packedAssetInfoList = asset.packingAssetInfoList;
+            List<ToTrackImage> toTrackImages = toTrackImgColl.toTrackImages;
+            IEnumerable<PackingAssetInfo> toDeleteAssets = packedAssetInfoList.Where(toPackAssetInfo =>
+                     toPackAssetInfo.apkAssetPath.Contains("it_") &&
+                     !toTrackImages.Exists(image => toPackAssetInfo.apkAssetPath.Contains(image.imageFilePath)));
+
+            toDeleteAssets.ToList().ForEach(toDelete =>
+            {
+                asset.toDeletePackingAssetList.Add(toDelete.apkAssetPath);
+                packedAssetInfoList.Remove(toDelete);
+            });
+
+            toTrackImgColl.toTrackImages.Where(imageInfo => imageInfo.image != null).ForEach(imageInfo =>
+            {
+                string imageTarget = assetPath + $"/{imageInfo.imageFilePath}";
+
+                asset.packingAssetInfoList ??= new List<PackingAssetInfo>();
+                PackingAssetInfo assetInfo
+                    = packedAssetInfoList.Find(info => info.apkAssetPath == imageTarget);
+                assetInfo ??= new PackingAssetInfo();
+                assetInfo.unityAssetPath = AssetDatabase.GetAssetPath(imageInfo.image);
+                assetInfo.apkAssetPath = imageTarget;
+                if (!asset.packingAssetInfoList.Contains(assetInfo))
+                    asset.packingAssetInfoList.Add(assetInfo);
+            });
+        }
+    }
+}

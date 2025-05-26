@@ -67,8 +67,6 @@ namespace YVR.Core
 
             YVRPlugin.Instance.GetHandJointLocations(HandType.HandLeft, ref m_LeftHandJointLocations);
             YVRPlugin.Instance.GetHandJointLocations(HandType.HandRight, ref m_RightHandJointLocations);
-            ChangeJointsOrientation(m_LeftHandJointLocations);
-            ChangeJointsOrientation(m_RightHandJointLocations);
             if (m_LeftHandJointLocations.jointLocations == null || m_RightHandJointLocations.jointLocations == null)
             {
                 return XRHandSubsystem.UpdateSuccessFlags.None;
@@ -102,16 +100,6 @@ namespace YVR.Core
             }
 
             return successFlags;
-        }
-
-        private void ChangeJointsOrientation(HandJointLocations handJointLocations)
-        {
-            for (int i = 0; i < handJointLocations.jointLocations.Length; i++)
-            {
-                Quaternion quaternion = handJointLocations.jointLocations[i].pose.orientation;
-                handJointLocations.jointLocations[i].pose.orientation = new Quaternion(
-                    quaternion.x, quaternion.y, quaternion.z, quaternion.w) * Quaternion.AngleAxis(-180f, Vector3.up);
-            }
         }
 
         private void SetHandJointData(NativeArray<XRHandJoint> handJoints, HandJointLocations handJointLocations)

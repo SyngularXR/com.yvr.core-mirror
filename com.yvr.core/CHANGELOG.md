@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.28.1] - 2025-05-23
+
+### Added
+
+- Image Tracking 适配 ARFoundation
+
+## [1.28.0] - 2025-05-19
+
+### Added
+
+- 增加 Image Tracking 相关接口
+
+## [1.27.1] - 2025-05-15
+
+### Changed
+
+- 将手势追踪中 C# 层的坐标转换修改到 native 中
+
+## [1.27.0-preview.0] - 2025-05-14
+
+### Changed
+
+- Core Native 交互部分重构
+    - 删除 YVRWidget 部分
+    - 删除 YVRDeveloperMode 相关的设置
+    - 增加 Profiler 支持
+    - 删除 EyeBias 数组获取，改由 xrLocateView 获取
+    - 不再对 Input 数据进行 Queue 缓存
+    - 将 HMD，Controller 拆分为独立的 InputMgr 管理
+    - 使用 独立InputDevices 管理 UnityInputProvider 中的数据
+    - 删除手势相机获取数据获取相关的 api
+
+## [1.26.7] - 2025-04-29
+
+### Fixed
+
+- 修复 xrLocateViews 接口中 displayTime 参数为 0
+
+## [1.26.6] - 2025-04-24
+
+### Fixed
+
+- 修复更新 Pose 时偶现右手系位姿
+
 ## [1.26.5] - 2025-04-21
 
 ### Fixed

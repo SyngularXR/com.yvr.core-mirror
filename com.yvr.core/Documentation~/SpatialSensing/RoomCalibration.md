@@ -16,7 +16,8 @@ You can obtain room information and calibration data created by the room calibra
 >     <br />
 > - Data Reading Permission: Both the room calibration application and third-party applications can read room calibration data.
 
-Please ensure that the Spatial Anchor Support and Scene Support checkboxes are selected in the YVRManager script panel.
+- In your project, open `ProjectSettings`, navigate to the `YVR` panel under `XR Plug-in Management`, and check both `Spatial Anchor Support` and `Scene Support` to enable spatial anchoring and scene-related capabilities.
+    ![RoomCalibration](./RoomCalibration/RoomCalibration.png)
 
 > [!Note]
 > After selecting the Spatial Anchor Support and Scene Support checkboxes, the corresponding permissions for anchors will be added to the AndroidManifest.xml file.

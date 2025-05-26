@@ -431,8 +431,8 @@ namespace YVR.Core.XR.InputDevices
             InputSystem.QueueDeltaStateEvent(pinchStrengthMiddle, pinchMiddle);
             InputSystem.QueueDeltaStateEvent(pinchStrengthRing, pinchRing);
             InputSystem.QueueDeltaStateEvent(pinchStrengthLittle, pinchLittle);
-            InputSystem.QueueDeltaStateEvent(devicePosition, aimPose.position.FromFlippedZVector3f());
-            InputSystem.QueueDeltaStateEvent(deviceRotation, aimPose.rotation.FromFlippedZQuatf());
+            InputSystem.QueueDeltaStateEvent(devicePosition, aimPose.position);
+            InputSystem.QueueDeltaStateEvent(deviceRotation, aimPose.rotation);
             if ((aimFlags & YVRAimFlags.Computed) != YVRAimFlags.None)
             {
                 if (!m_WasTracked)

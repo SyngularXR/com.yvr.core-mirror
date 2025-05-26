@@ -6,9 +6,9 @@
 
 你可以通过 SDK 接口获取房间标定应用创建的房间信息和标定数据，并将其用于自己的应用中，也可以在应用内创建自己的锚点。
 
--   SDK 版本：Unity SDK 2.8.0 及以上
--   设备型号：YVR2，Play Form Dream MR
--   系统版本：DreamOS 1.3.0 及以上
+- SDK 版本：Unity SDK 2.8.0 及以上
+- 设备型号：YVR2，Play Form Dream MR
+- 系统版本：DreamOS 1.3.0 及以上
 
 > [!Note]
 >
@@ -16,13 +16,15 @@
 >     <br />
 > -   数据读取权限：房间标定应用和第三方应用可以读取房间标定数据
 
-请确保已在 YVRManager 脚本面板上勾选了 Spatial Anchor Support 和 Scene Support 选框。
+- 在项目中打开`ProjectSettings` 选择 `XR Plug-in Management` 下 `YVR` 面板勾选 `Spatial Anchor Support` 和 `Scene Support`
+    ![RoomCalibration](./RoomCalibration/RoomCalibration.png)
 
 > [!Note]
 > 勾选 Spatial Anchor Support 和 Scene Support 选框后，AndroidManifest.xml 文件中会添加锚点对应权限。
 > <br /> > **\<uses-permission android:name="com.yvr.permission.USE_ANCHOR_API"\\>** > <br /> > **\<uses-permission android:name="com.yvr.permission.USE_SCENE"\\>**
 
-com.yvr.permission.USE_SCENE is a runtime permission that allows the application to query spatial data on the user's device only when the user grants the permission. [Requesting Android runtime permissions](https://docs.unity3d.com/Manual/android-RequestingPermissions.html) makes a permission request.
+com.yvr.permission.USE_SCENE 是一项运行时权限，当用户授予该权限后，允许应用程序查询用户设备上的空间数据。[请求 Android 运行时权限](https://docs.unity3d.com/Manual/android-RequestingPermissions.html) 功能可用于发起权限请求。
+
 
 ## Scene Anchors 可以包含的组件类型
 

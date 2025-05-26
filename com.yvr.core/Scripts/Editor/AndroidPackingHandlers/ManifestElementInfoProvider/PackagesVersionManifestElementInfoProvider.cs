@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
+using UnityEngine;
 using YVR.Utilities.Editor.PackingProcessor;
 
 namespace YVR.Core.Editor.Packing
@@ -29,30 +30,38 @@ namespace YVR.Core.Editor.Packing
             s_CancellationTokenSource = new CancellationTokenSource();
             CancellationToken cancellationToken = s_CancellationTokenSource.Token;
 
-            ListRequest listRequest = Client.List(true, true);
-            Task.Run(() =>
+            ListRequest listRequest = Client.List(false, false);
+
+            EditorApplication.update += OnUpdate;
+            
+            void OnUpdate()
             {
-                int waitCount = 0;
-                while (listRequest.Status != StatusCode.Success && waitCount < 10)
+                if (cancellationToken.IsCancellationRequested)
                 {
-                    if (cancellationToken.IsCancellationRequested) return;
-                    waitCount++;
-                    Thread.Sleep(1000);
+                    EditorApplication.update -= OnUpdate;
+                    return;
                 }
 
-                if (listRequest.Status != StatusCode.Success) return;
+                if (listRequest.IsCompleted)
+                {
+                    EditorApplication.update -= OnUpdate;
 
-                string[] yvrPackagesInfo = listRequest.Result.Where(item => item.name.Contains("com.yvr"))
-                                                      .Select(item =>
-                                                                  $"Unity_{item.name["com.yvr.".Length..]}_{item.version}")
-                                                      .ToArray();
-                string packageInfoStr = string.Join("|", yvrPackagesInfo);
+                    if (listRequest.Status == StatusCode.Success)
+                        ProcessPackageInfo(listRequest.Result);
+                }
+            }
+        }
+        private void ProcessPackageInfo(PackageCollection packages)
+        {
+            string[] yvrPackagesInfo = packages
+                                      .Where(item => item.name.Contains("com.yvr"))
+                                      .Select(item => $"Unity_{item.name["com.yvr.".Length..]}_{item.version}")
+                                      .ToArray();
 
-                var info = new ManifestTagInfo("/manifest/application", "meta-data", "name", manifestElementName,
-                                               new[] {"value", packageInfoStr});
-
-                AndroidManifestHandler.UpdateManifestElement(manifestElementName, info);
-            }, cancellationToken);
+            string packageInfoStr = string.Join("|", yvrPackagesInfo);
+            var info = new ManifestTagInfo("/manifest/application", "meta-data", "name", manifestElementName,
+                                           new[] { "value", packageInfoStr });
+            AndroidManifestHandler.UpdateManifestElement(manifestElementName, info);
         }
     }
 }

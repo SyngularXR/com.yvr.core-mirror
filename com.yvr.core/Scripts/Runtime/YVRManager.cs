@@ -212,11 +212,6 @@ namespace YVR.Core
 
             eventsManager.Initialize();
 
-            if (YVRXRSettings.instance.eyeTrackingSupport != YVRFeatureSupport.None)
-            {
-                YVRPlugin.Instance.CreateEyeTracker();
-            }
-
             if (useRecommendedMSAALevel) QualitySettings.antiAliasing = qualityManager.recommendAntiAlisingLevel;
 
             PackageVersion.PrintPackagesVersion(typeof(YVRManager));

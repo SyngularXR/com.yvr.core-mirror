@@ -12,8 +12,6 @@ namespace YVR.Core.XR
 
         [MarshalAs(UnmanagedType.U1)] public bool useLinearColorSpace;
 
-        [MarshalAs(UnmanagedType.U1)] public bool UseVRWidget;
-
         [MarshalAs(UnmanagedType.U1)] public bool useAppSW;
 
         [MarshalAs(UnmanagedType.U1)] public bool optimizeBufferDiscards;

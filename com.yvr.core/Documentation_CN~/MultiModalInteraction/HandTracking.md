@@ -26,7 +26,7 @@
 
 3. 在 Unity 编辑器中创建一个场景或打开已有的场景。
 4. 将 `com.yvr.core/Prefabs/` 目录下的 `YVRCameraRig` 拖拽至 `Hierarchy` 面板中。
-5. 选中 `YVRCameraRig`， 在 `YVRManager` 组件中从 `Hand Tracking Support` 里选择是否支持手势追踪或手柄，为应用启动手势追踪或手柄能力。
+5. 打开 `ProjectSettings` 选择 `XR Plug-in Management` 下 `YVR` 面板在 `Hand Tracking Support` 中选择是否支持手势追踪或手柄，为应用启动手势追踪或手柄能力。
    ![HandTracking](./HandTracking/HandTracking.png)
 
 6. 构建该场景，然后在设备上运行。

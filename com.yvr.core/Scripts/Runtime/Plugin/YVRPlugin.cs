@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Collections;
 using UnityEngine.Internal;
+using YVR.Core.ImageTracking;
 
 namespace YVR.Core
 {
@@ -211,21 +212,13 @@ namespace YVR.Core
 
         public virtual void SetPlaneDetectionsCallback(Action<YVRPlaneDetectorLocationsInternal> action) { }
 
-        public virtual IntPtr GetPolygonBuffer(ulong planeId, uint count) { return default;}
+        public virtual IntPtr GetPolygonBuffer(ulong planeId, uint count) { return default; }
 
         public virtual void EndPlaneDetection() { }
 
         public virtual bool GetEyeTrackingSupportes() { return false; }
 
-        public virtual void CreateEyeTracker() { }
-
-        public virtual void DestroyEyeTracker() { }
-
         public virtual bool GetEyeTrackingEnable() { return false; }
-
-        public virtual void GetEyeGazes(ref EyeTrackingData.EyeGazesState eyeGazesState) { }
-
-        public virtual void GetEyeGazePose(ref EyeTrackingData.EyeGazePose eyeGazePose) { }
 
         public virtual int GetSpaceBoundingBox2D(ulong anchorHandle, ref YVRRect2D boundingBox2D) { return -1; }
 
@@ -282,5 +275,10 @@ namespace YVR.Core
         public virtual void SetSessionStateChangeCallback(Action<int> state) { }
 
         public virtual void PollEvent() { }
+
+        public virtual void SwitchImageTracking(bool enable) { }
+        public virtual void RegisterImageTemplate(ImageTemplateInfo imageTemplateInfo) { }
+        public virtual void UnRegisterImageTemplate(string imageId) { }
+        public virtual void SetImageTrackingUpdateCallback(Action<TrackedImageInfo> callback) { }
     }
 }

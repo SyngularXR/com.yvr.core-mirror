@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine.Internal;
 using Unity.Profiling;
+using YVR.Core.ImageTracking;
 
 namespace YVR.Core
 {
@@ -259,19 +260,7 @@ namespace YVR.Core
         public static extern bool YVRGetEyeTrackingSupports();
 
         [DllImport("yvrplugin")]
-        public static extern void YVRCreateEyeTracker();
-
-        [DllImport("yvrplugin")]
-        public static extern void YVRDestroyEyeTracker();
-
-        [DllImport("yvrplugin")]
         public static extern bool YVRGetEyeTrackingEnable();
-
-        [DllImport("yvrplugin")]
-        public static extern void YVRGetEyeGazes(ref EyeTrackingData.EyeGazesState eyeGazesState);
-
-        [DllImport("yvrplugin")]
-        public static extern void YVRGetEyeGazePose(ref EyeTrackingData.EyeGazePose eyeGazePose);
 
         [DllImport("yvrplugin")]
         public static extern int YVRGetSpaceBoundingBox2D(ulong anchorHandle, ref YVRRect2D boundingBox2D);
@@ -347,6 +336,18 @@ namespace YVR.Core
 
         [DllImport("yvrplugin")]
         public static extern void YVRPollEvent();
+
+        [DllImport("yvrplugin")]
+        public static extern void YVRSwitchImageTracking(bool enable);
+
+        [DllImport("yvrplugin")]
+        public static extern void YVRRegisterImageTemplate(ImageTemplateInfo imageTemplateInfo);
+
+        [DllImport("yvrplugin", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern void YVRUnRegisterImageTemplate(string imageTemplateInfo);
+
+        [DllImport("yvrplugin")]
+        public static extern void YVRSetImageTrackingUpdateCallback(Action<TrackedImageInfo> imageInfo);
 
         //---------------------------------------------------------------------------------------------
 
@@ -522,10 +523,6 @@ namespace YVR.Core
                 jointLocations.jointCount = handData.jointCount;
                 jointLocations.handScale = handData.handScale;
                 jointLocations.isActive = handData.isActive;
-                for (int i = 0; i < jointLocations.jointLocations.Length; i++)
-                {
-                    jointLocations.jointLocations[i].pose.ToJointPosef(handType);
-                }
 
                 if (handType == HandType.HandLeft)
                 {
@@ -695,28 +692,14 @@ namespace YVR.Core
 
         public override IntPtr GetPolygonBuffer(ulong planeId, uint count)
         {
-            return YVRGetPolygonBuffer(planeId,count);
+            return YVRGetPolygonBuffer(planeId, count);
         }
 
         public override void EndPlaneDetection() { YVREndPlaneDetection(); }
 
         public override bool GetEyeTrackingSupportes() { return YVRGetEyeTrackingSupports(); }
 
-        public override void CreateEyeTracker() { YVRCreateEyeTracker(); }
-
-        public override void DestroyEyeTracker() { YVRDestroyEyeTracker(); }
-
         public override bool GetEyeTrackingEnable() { return YVRGetEyeTrackingEnable(); }
-
-        public override void GetEyeGazes(ref EyeTrackingData.EyeGazesState eyeGazesState)
-        {
-            YVRGetEyeGazes(ref eyeGazesState);
-        }
-
-        public override void GetEyeGazePose(ref EyeTrackingData.EyeGazePose eyeGazePose)
-        {
-            YVRGetEyeGazePose(ref eyeGazePose);
-        }
 
         public override int GetSpaceBoundingBox2D(ulong anchorHandle, ref YVRRect2D boundingBox2D)
         {
@@ -793,22 +776,30 @@ namespace YVR.Core
             return YVRGetPassthroughImageDiffRotation(eyeIndex);
         }
 
-        public override void SetBlockInteractionData(bool isBlock)
-        {
-            YVRSetBlockInteractionData(isBlock);
-        }
+        public override void SetBlockInteractionData(bool isBlock) { YVRSetBlockInteractionData(isBlock); }
 
-        public override bool GetBlockInteractionData()
-        {
-            return YVRGetBlockInteractionData();
-        }
+        public override bool GetBlockInteractionData() { return YVRGetBlockInteractionData(); }
 
         public override void SetSessionStateChangeCallback(Action<int> state) =>
             YVRSetSessionStateChangeCallback(state);
 
-        public override void PollEvent()
+        public override void PollEvent() { YVRPollEvent(); }
+
+        public override void SwitchImageTracking(bool enable) { YVRSwitchImageTracking(enable); }
+
+        public override void RegisterImageTemplate(ImageTemplateInfo imageTemplateInfo)
         {
-            YVRPollEvent();
+            YVRRegisterImageTemplate(imageTemplateInfo);
+        }
+
+        public override void UnRegisterImageTemplate(string imageTemplateInfo)
+        {
+            YVRUnRegisterImageTemplate(imageTemplateInfo);
+        }
+
+        public override void SetImageTrackingUpdateCallback(Action<TrackedImageInfo> callback)
+        {
+            YVRSetImageTrackingUpdateCallback(callback);
         }
     }
 }

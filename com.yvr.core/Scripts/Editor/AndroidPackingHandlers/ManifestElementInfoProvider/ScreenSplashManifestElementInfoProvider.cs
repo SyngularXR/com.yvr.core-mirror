@@ -20,8 +20,6 @@ namespace YVR.Core.Editor.Packing
         public override void HandleManifestElementInfo()
         {
             bool requiredSplash = YVRXRSettings.instance != null && YVRXRSettings.instance.OSSplashScreen != null;
-            // var manifestTagInfo = new ManifestTagInfo("/manifest/application", "meta-data", "name", manifestElementName,
-            //                                           new[] {"value", requiredSplash ? "true" : "false"});
 
             var manifestTagInfo = new ManifestTagInfo()
             {
