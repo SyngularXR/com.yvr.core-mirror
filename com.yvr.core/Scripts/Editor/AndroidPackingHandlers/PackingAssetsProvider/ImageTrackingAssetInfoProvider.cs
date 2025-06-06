@@ -70,7 +70,7 @@ namespace YVR.Core.Editor.Packing
 
             toTrackImgColl.toTrackImages.Where(imageInfo => imageInfo.image != null).ForEach(imageInfo =>
             {
-                string imageTarget = assetPath + $"/{imageInfo.imageFilePath}";
+                string imageTarget = Path.Combine(assetPath, $"it_{imageInfo.imageId}.png");
 
                 asset.packingAssetInfoList ??= new List<PackingAssetInfo>();
                 PackingAssetInfo assetInfo = packedAssetInfoList.Find(info => info.usage is "ImageTracking" &&
@@ -84,6 +84,7 @@ namespace YVR.Core.Editor.Packing
 
                 assetInfo.unityAssetPath = AssetDatabase.GetAssetPath(imageInfo.image);
                 assetInfo.apkAssetPath = imageTarget;
+
                 assetInfo.usage = "ImageTracking";
             });
         }

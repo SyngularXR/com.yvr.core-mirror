@@ -44,7 +44,7 @@ namespace YVR.Core.Editor.Packing
             {
                 PackingAssetInfo assetInfo = asset.packingAssetInfoList.Find(info => info.usage == "Splash");
                 asset.packingAssetInfoList.Remove(assetInfo);
-                if (assetInfo.apkAssetPath != null)
+                if (assetInfo?.apkAssetPath != null)
                     asset.toDeletePackingAssetList.Add(assetInfo.apkAssetPath);
             }
         }

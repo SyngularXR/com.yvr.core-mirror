@@ -5,7 +5,7 @@ using YVR.Utilities;
 
 namespace YVR.Core.Editor.Packing
 {
-    public class PackingAssetHandler :  IPostGenerateGradleAndroidProject
+    public class PackingAssetHandler : IPostGenerateGradleAndroidProject
     {
         public int callbackOrder => 9001;
 
