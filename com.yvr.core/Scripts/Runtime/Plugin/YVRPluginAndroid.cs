@@ -349,7 +349,25 @@ namespace YVR.Core
         [DllImport("yvrplugin")]
         public static extern void YVRSetImageTrackingUpdateCallback(Action<TrackedImageInfo> imageInfo);
 
+        [DllImport("yvrplugin")]
+        public static extern bool YVRIsPassthroughInitialized();
+
+        [DllImport("yvrplugin")]
+        public static extern int YVRSetPassthroughStyle(ref PassthroughStyle passthroughStyle);
+
+        [DllImport("yvrplugin")]
+        public static extern int YVRCreatePassthroughColorLut(PassthroughColorLutChannels channels,UInt32 resolution,
+            PassthroughColorLutData data, out UInt64 colorLut);
+
+        [DllImport("yvrplugin")]
+        public static extern int YVRDestroyPassthroughColorLut(UInt64 colorLut);
+
+        [DllImport("yvrplugin")]
+        public static extern int YVRUpdatePassthroughColorLut(UInt64 colorLut, PassthroughColorLutData data);
+
+
         //---------------------------------------------------------------------------------------------
+        public static bool IsSuccess(int result) => result >= 0;
 
         public static YVRPluginAndroid Create() { return new YVRPluginAndroid(); }
 
@@ -800,6 +818,33 @@ namespace YVR.Core
         public override void SetImageTrackingUpdateCallback(Action<TrackedImageInfo> callback)
         {
             YVRSetImageTrackingUpdateCallback(callback);
+        }
+
+        public override bool IsPassthroughInitialized()
+        {
+            return YVRIsPassthroughInitialized();
+        }
+
+        public override bool SetPassthroughStyle(PassthroughStyle style)
+        {
+            return IsSuccess(YVRSetPassthroughStyle(ref style));
+        }
+
+        public override bool CreatePassthroughColorLut(PassthroughColorLutChannels channels,UInt32 resolution,
+            PassthroughColorLutData data, out UInt64 colorLut)
+        {
+            var xrResult = YVRCreatePassthroughColorLut(channels,resolution, data, out colorLut);
+            return IsSuccess(xrResult);
+        }
+
+        public override bool DestroyPassthroughColorLut(ulong colorLut)
+        {
+            return IsSuccess(YVRDestroyPassthroughColorLut(colorLut));
+        }
+
+        public override bool UpdatePassthroughColorLut(ulong colorLut, PassthroughColorLutData data)
+        {
+            return IsSuccess(YVRUpdatePassthroughColorLut(colorLut, data));
         }
     }
 }

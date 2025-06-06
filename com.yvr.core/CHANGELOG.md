@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.28.5] - 2025-06-06
+
+### Added
+
+- ImagePacking 不再依赖 Apk Asset Path
+
+## [1.28.4] - 2025-06-06
+
+### Fixed
+
+- 修复 Splash Asset Path 强依赖 APkPath 路径的问题
+
+## [1.28.3] - 2025-05-30
+
+### Added
+
+- 增加 LUT 相关接口
+
 ## [1.28.2] - 2025-05-27
 
 ### Changed

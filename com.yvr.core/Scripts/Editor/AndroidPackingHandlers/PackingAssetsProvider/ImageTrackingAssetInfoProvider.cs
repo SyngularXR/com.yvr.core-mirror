@@ -59,12 +59,12 @@ namespace YVR.Core.Editor.Packing
             List<PackingAssetInfo> packedAssetInfoList = asset.packingAssetInfoList;
             List<ToTrackImage> toTrackImages = toTrackImgColl.toTrackImages;
             IEnumerable<PackingAssetInfo> toDeleteAssets = packedAssetInfoList.Where(toPackAssetInfo =>
-                     toPackAssetInfo.apkAssetPath.Contains("it_") &&
-                     !toTrackImages.Exists(image => toPackAssetInfo.apkAssetPath.Contains(image.imageFilePath)));
+                     toPackAssetInfo.usage is "ImageTracking" &&
+                     !toTrackImages.Exists(image => toPackAssetInfo.unityAssetPath.Contains(image.imageFilePath)));
 
             toDeleteAssets.ToList().ForEach(toDelete =>
             {
-                asset.toDeletePackingAssetList.Add(toDelete.apkAssetPath);
+                if (toDelete.apkAssetPath != null) asset.toDeletePackingAssetList.Add(toDelete.apkAssetPath);
                 packedAssetInfoList.Remove(toDelete);
             });
 
@@ -73,13 +73,18 @@ namespace YVR.Core.Editor.Packing
                 string imageTarget = assetPath + $"/{imageInfo.imageFilePath}";
 
                 asset.packingAssetInfoList ??= new List<PackingAssetInfo>();
-                PackingAssetInfo assetInfo
-                    = packedAssetInfoList.Find(info => info.apkAssetPath == imageTarget);
-                assetInfo ??= new PackingAssetInfo();
+                PackingAssetInfo assetInfo = packedAssetInfoList.Find(info => info.usage is "ImageTracking" &&
+                                                                              info.unityAssetPath
+                                                                                 .Contains(imageInfo.imageFilePath));
+                if (assetInfo == null)
+                {
+                    assetInfo = new PackingAssetInfo();
+                    asset.packingAssetInfoList.Add(assetInfo);
+                }
+
                 assetInfo.unityAssetPath = AssetDatabase.GetAssetPath(imageInfo.image);
                 assetInfo.apkAssetPath = imageTarget;
-                if (!asset.packingAssetInfoList.Contains(assetInfo))
-                    asset.packingAssetInfoList.Add(assetInfo);
+                assetInfo.usage = "ImageTracking";
             });
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEngine;
 using YVR.Core.XR;
 using YVR.Utilities.Editor.PackingProcessor;
 
@@ -24,20 +25,27 @@ namespace YVR.Core.Editor.Packing
             string splashTargetPath = Path.Combine(path, "src/main/assets") + "/vr_splash.png";
             asset.packingAssetInfoList ??= new List<PackingAssetInfo>();
 
-            PackingAssetInfo assetInfo = asset.packingAssetInfoList.Find(info => info.apkAssetPath == splashTargetPath);
-
             if (YVRXRSettings.instance?.OSSplashScreen != null)
             {
-                assetInfo ??= new PackingAssetInfo();
-                assetInfo.unityAssetPath = AssetDatabase.GetAssetPath(YVRXRSettings.instance.OSSplashScreen);
-                assetInfo.apkAssetPath = splashTargetPath;
-                if (!asset.packingAssetInfoList.Contains(assetInfo))
+                string unityAssetPath = AssetDatabase.GetAssetPath(YVRXRSettings.instance.OSSplashScreen);
+                PackingAssetInfo assetInfo
+                    = asset.packingAssetInfoList.Find(info => info.unityAssetPath == unityAssetPath);
+                if (assetInfo == null)
+                {
+                    assetInfo = new PackingAssetInfo();
                     asset.packingAssetInfoList.Add(assetInfo);
+                }
+
+                assetInfo.usage = "Splash";
+                assetInfo.unityAssetPath = unityAssetPath;
+                assetInfo.apkAssetPath = splashTargetPath;
             }
-            else if (assetInfo != null)
+            else
             {
+                PackingAssetInfo assetInfo = asset.packingAssetInfoList.Find(info => info.usage == "Splash");
                 asset.packingAssetInfoList.Remove(assetInfo);
-                asset.toDeletePackingAssetList.Add(assetInfo.apkAssetPath);
+                if (assetInfo.apkAssetPath != null)
+                    asset.toDeletePackingAssetList.Add(assetInfo.apkAssetPath);
             }
         }
     }
