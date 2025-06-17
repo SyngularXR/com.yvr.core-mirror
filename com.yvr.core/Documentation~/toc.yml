@@ -28,6 +28,8 @@
               href: ./SpatialSensing/SpatialMesh.md
             - name: Spatial Anchor
               href: ./SpatialSensing/SpatialAnchor.md
+            - name: Image Tracking
+              href: ./SpatialSensing/ImageTracking.md
       - name: Advanced Features
         href: ./AdvancedFeatures.md
         items:
@@ -68,6 +70,8 @@
               href: ./ARFoundation/Mesh.md
             - name: Plane
               href: ./ARFoundation/Plane.md
+            - name: Image Tracking
+              href: ./ARFoundation/ImageTracking.md
       - name: Demo Scenes
         href: ./DemoScenes.md
         items:

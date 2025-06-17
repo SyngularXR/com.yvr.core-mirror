@@ -15,8 +15,8 @@ namespace YVR.Core
         private Dictionary<string, bool> buttonAction = new Dictionary<string, bool>();
         private Dictionary<string, Vector2> buttonVect2Value = new Dictionary<string, Vector2>();
         private Dictionary<string, float> buttonValue = new Dictionary<string, float>();
-        private float leftAmplitudeValue = 0.1f;
-        private float rightAmplitudeValue = 0.1f;
+        [SerializeField]private float leftAmplitudeValue = 0.1f;
+        [SerializeField]private float rightAmplitudeValue = 0.1f;
 
         void Start()
         {
@@ -101,11 +101,13 @@ namespace YVR.Core
         public void SendRightHapticImpulse()
         {
             SendHapticImpulse(controllerR,rightAmplitudeValue);
+            Debug.Log("SendRightHapticImpulse: " + rightAmplitudeValue);
         }
 
         public void SendLeftHapticImpulse()
         {
             SendHapticImpulse(controllerL,leftAmplitudeValue);
+            Debug.Log("SendRightHapticImpulse: " + rightAmplitudeValue);
         }
 
         public void ClearText()
@@ -128,11 +130,20 @@ namespace YVR.Core
             HapticCapabilities capabilities;
             if (inputDevice.TryGetHapticCapabilities(out capabilities))
             {
-
+                Debug.Log("inputDevice.TryGetHapticCapabilities Success");
                 if (capabilities.supportsImpulse)
                 {
-                    inputDevice.SendHapticImpulse(0, value);
+                    Debug.Log("capabilities.supportsImpulse Success");
+                    inputDevice.SendHapticImpulse(0, value,1);
                 }
+                else
+                {
+                    Debug.Log("capabilities.supportsImpulse Failed");
+                }
+            }
+            else
+            {
+                Debug.Log("inputDevice.TryGetHapticCapabilities Failed");   
             }
         }
 

@@ -3,9 +3,10 @@
 
 ## 功能
 - [Anchor](Anchor.md): 跟踪空间中的任意点.
-- [Camera](Camera.md): 渲染来设备相机图像。.
+- [Camera](Camera.md): 渲染来设备相机图像.
 - [Mesh](Mesh.md): 识别空间环境并生成网格.
 - [Plane](Plane.md): 识别并跟踪平坦表面.
+- [ImageTracking](ImageTracking.md): 检测和跟踪环境中的 2D 图像.
 
 ## 示例工程
 

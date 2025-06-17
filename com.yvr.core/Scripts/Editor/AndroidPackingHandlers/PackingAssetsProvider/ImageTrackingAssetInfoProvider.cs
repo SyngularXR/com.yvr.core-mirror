@@ -52,30 +52,46 @@ namespace YVR.Core.Editor.Packing
         {
             string assetPath = Path.Combine(path, "src/main/assets");
             string[] files = Directory.GetFiles(assetPath, "it_*");
-            foreach (string file in files) File.Delete(file);
 
             var toTrackImgColl = ToTrackImagesCollectionSO.instance;
 
             List<PackingAssetInfo> packedAssetInfoList = asset.packingAssetInfoList;
             List<ToTrackImage> toTrackImages = toTrackImgColl.toTrackImages;
             IEnumerable<PackingAssetInfo> toDeleteAssets = packedAssetInfoList.Where(toPackAssetInfo =>
-                     toPackAssetInfo.usage is "ImageTracking" &&
-                     !toTrackImages.Exists(image => toPackAssetInfo.unityAssetPath.Contains(image.imageFilePath)));
+            {
+                return toPackAssetInfo.usage is "ImageTracking" &&
+                       !toTrackImages.Exists(image =>
+                       {
+                           string imagePath = image.imageFilePath.Replace("it_", "");
+                           return toPackAssetInfo.unityAssetPath.Contains(imagePath);
+                       });
+                ;
+            });
 
             toDeleteAssets.ToList().ForEach(toDelete =>
             {
-                if (toDelete.apkAssetPath != null) asset.toDeletePackingAssetList.Add(toDelete.apkAssetPath);
+                if (toDelete.apkAssetPath != null)
+                {
+                    asset.toDeletePackingAssetList.Add(toDelete.apkAssetPath);
+                    if (files.Contains(toDelete.apkAssetPath))
+                    {
+                        FileUtil.DeleteFileOrDirectory(toDelete.apkAssetPath);
+                    }
+                }
+
                 packedAssetInfoList.Remove(toDelete);
             });
 
             toTrackImgColl.toTrackImages.Where(imageInfo => imageInfo.image != null).ForEach(imageInfo =>
             {
-                string imageTarget = Path.Combine(assetPath, $"it_{imageInfo.imageId}.png");
+                string imageTarget = Path.Combine(assetPath, $"{imageInfo.imageFilePath}");
+                string imageFileName = imageInfo.imageFilePath.Replace("it_", "");
+
 
                 asset.packingAssetInfoList ??= new List<PackingAssetInfo>();
                 PackingAssetInfo assetInfo = packedAssetInfoList.Find(info => info.usage is "ImageTracking" &&
                                                                               info.unityAssetPath
-                                                                                 .Contains(imageInfo.imageFilePath));
+                                                                                 .Contains(imageFileName));
                 if (assetInfo == null)
                 {
                     assetInfo = new PackingAssetInfo();

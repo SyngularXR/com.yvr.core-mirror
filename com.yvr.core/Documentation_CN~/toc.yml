@@ -28,6 +28,8 @@
               href: ./SpatialSensing/SpatialMesh.md
             - name: 空间锚点
               href: ./SpatialSensing/SpatialAnchor.md
+            - name: 图像跟踪
+              href: ./SpatialSensing/ImageTracking.md
       - name: 高级功能
         href: ./AdvancedFeatures.md
         items:
@@ -68,6 +70,8 @@
               href: ./ARFoundation/Mesh.md
             - name: Plane
               href: ./ARFoundation/Plane.md
+            - name: ImageTracking
+              href: ./ARFoundation/ImageTracking.md
       - name: 示例场景
         href: ./DemoScenes.md
         items:

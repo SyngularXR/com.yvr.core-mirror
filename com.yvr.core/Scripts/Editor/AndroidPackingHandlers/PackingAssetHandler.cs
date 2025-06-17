@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Android;
+using UnityEngine;
 using YVR.Utilities;
 
 namespace YVR.Core.Editor.Packing

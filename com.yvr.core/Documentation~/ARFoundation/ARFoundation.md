@@ -6,6 +6,7 @@ Using `AR Foundation` enables the creation of cross-platform augmented reality a
 - [Camera](Camera.md): Renders the image from the device's camera.
 - [Mesh](Mesh.md): Detects and generates meshes of the spatial environment.
 - [Plane](Plane.md): Identifies and tracks flat surfaces.
+- [ImageTracking](ImageTracking.md): Detecting and tracking 2D images in the environment.
 
 ## Sample Project
 
