@@ -281,31 +281,21 @@ namespace YVR.Core
         public virtual void UnRegisterImageTemplate(string imageId) { }
         public virtual void SetImageTrackingUpdateCallback(Action<TrackedImageInfo> callback) { }
 
-        public virtual bool IsPassthroughInitialized()
-        {
-            return true;
-        }
+        public virtual bool IsPassthroughInitialized() { return true; }
 
-        public virtual bool SetPassthroughStyle(PassthroughStyle style)
-        {
-            return true;
-        }
+        public virtual bool SetPassthroughStyle(PassthroughStyle style) { return true; }
 
         public virtual bool CreatePassthroughColorLut(PassthroughColorLutChannels channels, UInt32 resolution,
-            PassthroughColorLutData data, out ulong colorLut)
+                                                      PassthroughColorLutData data, out ulong colorLut)
         {
             colorLut = default;
             return true;
         }
 
-        public virtual bool DestroyPassthroughColorLut(ulong colorLut)
-        {
-            return true;
-        }
+        public virtual bool DestroyPassthroughColorLut(ulong colorLut) { return true; }
 
-        public virtual bool UpdatePassthroughColorLut(ulong colorLut, PassthroughColorLutData data)
-        {
-            return true;
-        }
+        public virtual bool UpdatePassthroughColorLut(ulong colorLut, PassthroughColorLutData data) { return true; }
+
+        public virtual float GetIPD() { return 0.0f; }
     }
 }

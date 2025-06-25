@@ -356,14 +356,17 @@ namespace YVR.Core
         public static extern int YVRSetPassthroughStyle(ref PassthroughStyle passthroughStyle);
 
         [DllImport("yvrplugin")]
-        public static extern int YVRCreatePassthroughColorLut(PassthroughColorLutChannels channels,UInt32 resolution,
-            PassthroughColorLutData data, out UInt64 colorLut);
+        public static extern int YVRCreatePassthroughColorLut(PassthroughColorLutChannels channels, UInt32 resolution,
+                                                              PassthroughColorLutData data, out UInt64 colorLut);
 
         [DllImport("yvrplugin")]
         public static extern int YVRDestroyPassthroughColorLut(UInt64 colorLut);
 
         [DllImport("yvrplugin")]
         public static extern int YVRUpdatePassthroughColorLut(UInt64 colorLut, PassthroughColorLutData data);
+
+        [DllImport("yvrplugin")]
+        private static extern float YVRGetIPD();
 
 
         //---------------------------------------------------------------------------------------------
@@ -820,20 +823,17 @@ namespace YVR.Core
             YVRSetImageTrackingUpdateCallback(callback);
         }
 
-        public override bool IsPassthroughInitialized()
-        {
-            return YVRIsPassthroughInitialized();
-        }
+        public override bool IsPassthroughInitialized() { return YVRIsPassthroughInitialized(); }
 
         public override bool SetPassthroughStyle(PassthroughStyle style)
         {
             return IsSuccess(YVRSetPassthroughStyle(ref style));
         }
 
-        public override bool CreatePassthroughColorLut(PassthroughColorLutChannels channels,UInt32 resolution,
-            PassthroughColorLutData data, out UInt64 colorLut)
+        public override bool CreatePassthroughColorLut(PassthroughColorLutChannels channels, UInt32 resolution,
+                                                       PassthroughColorLutData data, out UInt64 colorLut)
         {
-            var xrResult = YVRCreatePassthroughColorLut(channels,resolution, data, out colorLut);
+            var xrResult = YVRCreatePassthroughColorLut(channels, resolution, data, out colorLut);
             return IsSuccess(xrResult);
         }
 
@@ -846,5 +846,7 @@ namespace YVR.Core
         {
             return IsSuccess(YVRUpdatePassthroughColorLut(colorLut, data));
         }
+
+        public override float GetIPD() { return YVRGetIPD(); }
     }
 }

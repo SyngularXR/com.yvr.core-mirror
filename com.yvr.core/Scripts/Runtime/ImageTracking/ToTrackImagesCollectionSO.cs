@@ -15,10 +15,10 @@ namespace YVR.Core.ImageTracking
 
         private const string k_SaveDataPath = "Assets/XR/Resources/";
 
-        private static readonly string
-            s_SettingAssetPath = $"{k_SaveDataPath}{nameof(ToTrackImagesCollectionSO)}.asset";
+        private static string
+            s_SettingAssetPath => $"{k_SaveDataPath}{nameof(ToTrackImagesCollectionSO)}.asset";
 
-        private static readonly string s_AssetFilePath =
+        private static string s_AssetFilePath =>
             $"{Application.dataPath}/XR/Resources/{nameof(ToTrackImagesCollectionSO)}.asset";
 
         private static ToTrackImagesCollectionSO s_Instance = null;

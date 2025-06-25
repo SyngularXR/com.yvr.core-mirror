@@ -18,7 +18,7 @@ namespace YVR.Core
         private const string k_SaveDataPath = "Assets/XR/Resources/";
         private static readonly string s_SettingAssetPath = $"{k_SaveDataPath}{nameof(YVRSDKSettingAsset)}.asset";
 
-        private static readonly string s_AssetFilePath =
+        private static string s_AssetFilePath =>
             $"{Application.dataPath}/XR/Resources/{nameof(YVRSDKSettingAsset)}.asset";
 
         private static YVRSDKSettingAsset s_Asset = null;
