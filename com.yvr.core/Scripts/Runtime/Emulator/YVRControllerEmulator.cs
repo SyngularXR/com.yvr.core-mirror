@@ -16,8 +16,8 @@ namespace YVR.Core
         public bool isEmulatingRightController => targetController == EmulateController.RightController;
 
 
-        public List<KeyCode> activateKeys = new List<KeyCode>() {KeyCode.Space};
-        public List<KeyCode> rotationKeys = new List<KeyCode>() {KeyCode.LeftAlt};
+        public List<KeyCode> activateKeys = new List<KeyCode>() { KeyCode.Space };
+        public List<KeyCode> rotationKeys = new List<KeyCode>() { KeyCode.LeftAlt };
 
         public EmulatorKeyMapping keyMapping = new EmulatorKeyMapping(0);
         public EmulatorRotationSensitivity rotationSensitivity = new EmulatorRotationSensitivity(2.0f);
@@ -50,7 +50,7 @@ namespace YVR.Core
             base.Init();
             if (YVRManager.createdInstance == null) return;
 
-#if UNITY_ANDROID && UNITY_EDITOR
+#if UNITY_ANDROID && UNITY_EDITOR && YVR_EMULATOR
             YVRManager.createdInstance.eventsManager.onUpdate += EmulatorUpdate;
 #endif
 
@@ -73,7 +73,8 @@ namespace YVR.Core
                     else
                         ModifyControllerPosition();
                 }
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 Debug.LogError("Exception in Controller EmulatorUpdate: " + exception);
             }
@@ -108,14 +109,14 @@ namespace YVR.Core
         private void HandleEmulatorButtons()
         {
             // Enumerate all buttons in type RawButton to modify ControllerState.Buttons
-            foreach (YVRInput.RawButton rawButton in (YVRInput.RawButton[]) Enum.GetValues(typeof(YVRInput.RawButton)))
+            foreach (YVRInput.RawButton rawButton in (YVRInput.RawButton[])Enum.GetValues(typeof(YVRInput.RawButton)))
             {
                 if (keyMapping.emulatorKeysMap.ContainsKey(rawButton))
                 {
                     if (Input.GetKeyDown(keyMapping.emulatorKeysMap[rawButton]))
-                        controllerState.Buttons |= (UInt32) rawButton;
+                        controllerState.Buttons |= (UInt32)rawButton;
                     else if (Input.GetKeyUp(keyMapping.emulatorKeysMap[rawButton]))
-                        controllerState.Buttons &= (UInt32) ~rawButton;
+                        controllerState.Buttons &= (UInt32)~rawButton;
                 }
             }
         }
