@@ -18,20 +18,24 @@ namespace YVR.Core.XR
     {
         static InputLayoutLoader()
         {
-            // Debug.Log("InputLayoutLoader");
-            // RegisterInputLayouts();
+#if YVR_EMULATOR
+            Debug.Log("InputLayoutLoader");
+            RegisterInputLayouts();
+#endif
         }
 
         public static void RegisterInputLayouts()
         {
-            // InputSystem.RegisterLayout<YVRXRHMD>("YVRHMD",
-            //    matches: new InputDeviceMatcher()
-            //        .WithInterface(XRUtilities.InterfaceMatchAnyVersion)
-            //        .WithProduct("Headset").WithManufacturer("YVR"));
-            // InputSystem.RegisterLayout<YVRXRController>("YVRController",
-            //    matches: new InputDeviceMatcher()
-            //        .WithInterface(XRUtilities.InterfaceMatchAnyVersion)
-            //        .WithProduct(@"(Controller)$").WithManufacturer("YVR"));
+#if YVR_EMULATOR
+            InputSystem.RegisterLayout<YVRXRHMD>("YVRHMD",
+               matches: new InputDeviceMatcher()
+                   .WithInterface(XRUtilities.InterfaceMatchAnyVersion)
+                   .WithProduct("Headset").WithManufacturer("YVR"));
+            InputSystem.RegisterLayout<YVRXRController>("YVRController",
+               matches: new InputDeviceMatcher()
+                   .WithInterface(XRUtilities.InterfaceMatchAnyVersion)
+                   .WithProduct(@"(Controller)$").WithManufacturer("YVR"));
+#endif
         }
     }
 #endif
